@@ -1,0 +1,6 @@
+Flask>=3.0
+numpy>=1.26
+scipy>=1.11
+openpyxl>=3.1        # تصدير Excel (اختياري)
+gunicorn>=21.2       # للنشر على Linux (اختياري)
+pytest>=8.0          # للاختبارات (تطوير)
