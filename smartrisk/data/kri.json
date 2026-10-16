@@ -1,0 +1,12 @@
+[
+  { "id": "runway", "title": "مدة كفاية السيولة", "metric": "runway_months", "direction": "higher", "warn": 3, "crit": 1.5, "unit": "شهر", "term": "runway", "hint": "كم شهراً تكفي سيولتك الحالية لتغطية الالتزامات الثابتة لو توقفت المبيعات." },
+  { "id": "p_ruin", "title": "احتمال نفاد السيولة", "metric": "p_ruin_12", "direction": "lower", "warn": 0.05, "crit": 0.2, "unit": "%", "scale": 100, "term": "montecarlo", "hint": "نسبة سيناريوهات المحاكاة التي ينفد فيها الرصيد خلال 12 شهراً." },
+  { "id": "mos", "title": "هامش الأمان", "metric": "margin_of_safety", "direction": "higher", "warn": 0.25, "crit": 0.1, "unit": "%", "scale": 100, "term": "mos", "hint": "نسبة انخفاض المبيعات التي يتحملها المشروع قبل أن يبدأ بالخسارة." },
+  { "id": "net_margin", "title": "هامش الربح الصافي", "metric": "net_margin_y1", "direction": "higher", "warn": 0.08, "crit": 0.0, "unit": "%", "scale": 100, "term": "netmargin", "hint": "الربح الصافي كنسبة من الإيرادات في السنة الأولى." },
+  { "id": "gross_margin", "title": "هامش الربح الإجمالي", "metric": "gross_margin_y1", "direction": "higher", "warn": 0.25, "crit": 0.12, "unit": "%", "scale": 100, "term": "grossmargin", "hint": "ما يتبقى من الإيراد بعد تكلفة البضاعة المباعة." },
+  { "id": "dscr", "title": "تغطية خدمة الدين", "metric": "dscr", "direction": "higher", "warn": 1.5, "crit": 1.1, "unit": "x", "term": "dscr", "optional": true, "hint": "كم مرة يغطي التدفق التشغيلي أقساط القروض وفوائدها." },
+  { "id": "dso", "title": "مدة تحصيل الزبائن", "metric": "customer_days", "direction": "lower", "warn": 45, "crit": 75, "unit": "يوم", "term": "dso", "hint": "المتوسط الذي ينتظره المشروع قبل قبض ثمن مبيعاته." },
+  { "id": "inventory", "title": "مدة بقاء المخزون", "metric": "inventory_days", "direction": "lower", "warn": 60, "crit": 120, "unit": "يوم", "term": "dio", "hint": "كلما طالت المدة جمّد المخزون جزءاً أكبر من سيولتك." },
+  { "id": "concentration", "title": "تركّز الإيرادات في منتج", "metric": "top_product_share", "direction": "lower", "warn": 0.6, "crit": 0.85, "unit": "%", "scale": 100, "term": "concentration", "hint": "حصة أكبر منتج من إجمالي الإيراد. الاعتماد على منتج واحد خطر." },
+  { "id": "zscore", "title": "مؤشر الإفلاس (Z)", "metric": "z_score", "direction": "higher", "warn": 2.6, "crit": 1.1, "unit": "", "term": "zscore", "hint": "نموذج Altman Z″ مُكيَّف: أقل من 1.1 منطقة خطر، وبين 1.1 و2.6 منطقة رمادية." }
+]

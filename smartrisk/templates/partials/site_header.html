@@ -1,0 +1,21 @@
+{% from 'partials/logo.html' import brand %}
+<header class="site-header{% if solid %} site-header--solid{% endif %}" id="siteHeader">
+  <div class="site-header__in">
+    {{ brand() }}
+    <nav class="site-nav" aria-label="التنقل الرئيسي">
+      {% for item in nav_public %}
+      <a href="{{ url_for(item.endpoint) }}"{% if request.endpoint == item.endpoint %} aria-current="page"{% endif %}>{{ item.label }}</a>
+      {% endfor %}
+    </nav>
+    <div class="site-header__end">
+      {% if user %}
+        <a class="btn btn--sm" href="{{ url_for('web.projects') }}">مشاريعي</a>
+        {% if not user.local %}<button class="btn btn--light btn--sm" type="button" data-action="logout">خروج</button>{% endif %}
+      {% else %}
+        <a class="btn btn--light btn--sm" href="{{ url_for('web.login') }}">تسجيل الدخول</a>
+        <a class="btn btn--sm" href="{{ url_for('web.register') }}">إنشاء حساب</a>
+      {% endif %}
+      <button class="burger" type="button" id="burger" aria-label="القائمة" aria-expanded="false"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>

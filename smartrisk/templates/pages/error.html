@@ -1,0 +1,7 @@
+{% extends 'base.html' %}
+{% block title %}{{ title }} — SmartRisk{% endblock %}
+{% block body %}
+{% set solid = true %}{% include 'partials/site_header.html' %}
+<main class="section" style="min-height:50vh"><div class="empty"><h1 style="font-size:3rem" class="num">{{ code }}</h1><h2>{{ title }}</h2><p>{{ text }}</p><div style="margin-top:20px"><a class="btn" href="{{ url_for('web.landing') }}">العودة للرئيسية</a></div></div></main>
+{% include 'partials/site_footer.html' %}
+{% endblock %}

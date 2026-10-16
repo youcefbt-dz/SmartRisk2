@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+{% from 'partials/logo.html' import brand %}
+{% block title %}{{ project_name }} — SmartRisk{% endblock %}
+{% block body %}
+<div class="shell" id="shell">
+  <aside class="sidebar" id="sidebar" aria-label="أقسام المشروع">
+    {{ brand(url_for('web.projects')) }}
+    <div class="sidebar__project"><small>المشروع</small><strong id="sbName">{{ project_name }}</strong><span id="sbPill"></span></div>
+    <nav class="nav" id="nav" aria-label="الأقسام"></nav>
+    <div class="sidebar__foot">
+      <nav class="nav">
+        <a href="{{ url_for('web.projects') }}"><svg class="icon" viewBox="0 0 24 24"><path d="M3 6a2 2 0 012-2h4l2 2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V6z"/></svg>كل المشاريع</a>
+        <a href="{{ url_for('web.guide') }}" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3V4z"/><path d="M5 17a3 3 0 013-3h11"/></svg>الدليل والقاموس</a>
+        {% if user and not user.local %}<button type="button" data-action="logout"><svg class="icon" viewBox="0 0 24 24"><path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9"/></svg>تسجيل الخروج</button>{% endif %}
+      </nav>
+      {% if user and not user.local %}<div class="sidebar__user">{{ user.email }}</div>{% endif %}
+    </div>
+  </aside>
+  <div class="scrim" id="scrim"></div>
+  <div class="main">
+    <header class="topbar">
+      <button class="topbar__burger" type="button" id="navBurger" aria-label="القائمة"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+      <h1 id="viewTitle">…</h1>
+      <span class="spacer"></span>
+      <span class="save-state" id="saveState" data-state="idle" aria-live="polite"></span>
+    </header>
+    <main class="content" id="view" tabindex="-1"></main>
+  </div>
+</div>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/lib/vendor/chart.umd.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/pages/workspace.js') }}"></script>
+{% endblock %}

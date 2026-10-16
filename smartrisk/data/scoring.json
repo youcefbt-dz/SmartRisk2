@@ -1,0 +1,12 @@
+{
+  "_doc": "أوزان درجة جاهزية التمويل. لكل مكوّن: المقياس (metric) والقيمة السيئة (bad → 0 نقطة) والجيدة (good → كامل النقاط) مع استيفاء خطي بينهما. المعايير تقريبية وشائعة في تقييم البنوك والحاضنات، وليست نصاً تنظيمياً.",
+  "levels": { "ready": 75, "almost": 50 },
+  "components": [
+    { "id": "profit", "title": "الربحية", "metric": "net_margin_y1", "bad": 0.0, "good": 0.2, "weight": 20, "term": "netmargin", "action": "ارفع السعر أو خفّض تكلفة الوحدة وقلّل الهدر." },
+    { "id": "safety", "title": "هامش الأمان", "metric": "margin_of_safety", "bad": 0.0, "good": 0.4, "weight": 15, "term": "mos", "action": "خفّض التكاليف الثابتة أو ارفع المبيعات بعروض موجّهة للزبائن الحاليين." },
+    { "id": "liquidity", "title": "السيولة", "metric": "runway_months", "bad": 0.0, "good": 4, "weight": 20, "term": "runway", "action": "ابنِ احتياطياً نقدياً، وسرّع التحصيل، وأجّل المصاريف غير الضرورية." },
+    { "id": "resilience", "title": "الصمود أمام المخاطر", "metric": "p_survive_12", "bad": 0.5, "good": 0.95, "weight": 25, "term": "montecarlo", "action": "جهّز مورداً بديلاً، وقلّل الالتزامات الثابتة، وارفع احتياطي السيولة." },
+    { "id": "debt", "title": "القدرة على خدمة الدين", "metric": "dscr", "bad": 1.0, "good": 2.0, "weight": 10, "term": "dscr", "none_value": 1.0, "action": "لا تأخذ قرضاً جديداً الآن، وفكّر في إعادة جدولة القرض الحالي." },
+    { "id": "workingcap", "title": "كفاءة رأس المال العامل", "metric": "cash_cycle_days", "bad": 120, "good": 30, "weight": 10, "term": "workingcapital", "action": "قلّل مدة التحصيل والمخزون، وفاوض الموردين على آجال أطول." }
+  ]
+}

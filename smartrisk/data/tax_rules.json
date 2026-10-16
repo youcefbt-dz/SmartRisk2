@@ -1,0 +1,26 @@
+{
+  "version": "2026-10",
+  "currency": "DZD",
+  "verify_note": "نسب افتراضية جُمعت من مصادر عامة وقد تتغير مع قوانين المالية. تحقق منها من مصالح الضرائب (DGI) والضمان الاجتماعي (CNAS) قبل الاعتماد عليها، ويمكنك تعديلها من هذا الملف دون المساس بالكود.",
+  "vat": { "standard": 19, "reduced": 9 },
+  "ifu": {
+    "rates": { "goods": 5, "services": 12 },
+    "ceiling": 8000000,
+    "minimum_annual": 30000,
+    "vat_exempt": true
+  },
+  "ibs": { "production": 19, "btph_tourism": 23, "other": 26 },
+  "sector_ibs_map": {
+    "production": "production",
+    "btph": "btph_tourism",
+    "tourism": "btph_tourism",
+    "commerce": "other",
+    "services": "other"
+  },
+  "social": { "employer": 25, "employee": 9 },
+  "sources": [
+    { "title": "IFU en Algérie en 2026", "url": "https://zoomalgerie.com/ifu-algerie-taux-declaration-paiement-obligations/" },
+    { "title": "Fiscalité d'une entreprise en Algérie : IBS, TVA", "url": "https://zoomalgerie.com/fiscalite-entreprise-algerie-ibs-tva-dividendes-obligations/" },
+    { "title": "Employer taxes — CNAS", "url": "https://africarrieres.com/algeria/fr/guide/employeur-entreprise/employer-taxes" }
+  ]
+}

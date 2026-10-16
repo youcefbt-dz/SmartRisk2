@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% from 'partials/logo.html' import brand %}
+{% block body %}
+<div class="hero">
+  {% set solid = false %}{% include 'partials/site_header.html' %}
+  <div class="hero__grid">
+    <div>
+      <h1>اعرف قبل أن تنفد سيولتك</h1>
+      <p class="hero__lead">أدخل أرقام مشروعك الصغير. يشغّل SmartRisk آلاف السيناريوهات العشوائية ويخبرك باحتمال نفاد السيولة، ومتى قد يحدث، وكم تحتاج لتفاديه.</p>
+      <div class="hero__cta">
+        {% if user %}
+        <a class="btn btn--lg" href="{{ url_for('web.projects') }}">افتح مشاريعي</a>
+        {% else %}
+        <a class="btn btn--lg" href="{{ url_for('web.register') }}">أنشئ مشروعاً</a>
+        <a class="btn btn--light btn--lg" href="{{ url_for('web.guide') }}">كيف يعمل؟</a>
+        {% endif %}
+      </div>
+      <p class="hero__note">مصمّم للمشاريع الصغيرة في الجزائر: الدينار، وضرائب IFU وIBS وTVA، ومصادر تمويل مثل ANADE وANGEM.</p>
+    </div>
+    <div class="hero__visual" aria-label="رسم توضيحي لمحاكاة السيولة">
+      <canvas class="fan" id="fan" role="img" aria-label="مروحة مسارات عشوائية للرصيد النقدي"></canvas>
+      <div class="glass glass--a"><small>احتمال نفاد السيولة خلال 12 شهراً</small><strong id="gA">—</strong></div>
+      <div class="glass glass--b"><small>احتياطي يغطي 95% من المسارات</small><strong id="gB">—</strong></div>
+      <span class="hero__tag">محاكاة توضيحية لمشروع افتراضي</span>
+    </div>
+  </div>
+</div>
+
+<section class="section">
+  <div class="checks">
+    <div class="checks__sticky section__head">
+      <h2>ما الذي يفحصه SmartRisk</h2>
+      <p>بدل رقم واحد متفائل، تحصل على نطاق من الاحتمالات وعلى الأسباب التي تحرّكه.</p>
+    </div>
+    <div class="checks__list" id="checkList"></div>
+  </div>
+</section>
+
+<section class="flow">
+  <div class="section">
+    <div class="section__head"><h2>ثلاث خطوات</h2><p>لا تحتاج إلى خبرة محاسبية؛ يكفيك أن تعرف أرقام مشروعك التقريبية.</p></div>
+    <div class="flow__steps">
+      <div class="flow__step"><h3>أدخل مشروعك</h3><p>المنتجات وأسعارها وتكلفتها، الأجور، الإيجار، القروض، والسيولة التي تملكها اليوم. ابدأ من قالب جاهز إن شئت.</p></div>
+      <div class="flow__step"><h3>شغّل المحاكاة</h3><p>يبني النظام قوائمك المالية لمدة تصل إلى 5 سنوات ثم يجرّب آلاف الاحتمالات للطلب والتكلفة وتأخر التحصيل.</p></div>
+      <div class="flow__step"><h3>اقرأ التقرير وقرّر</h3><p>ألوان واضحة وتوصيات مرتبة بحسب الأهمية، وتقرير يُطبع أو يُحفظ PDF لتقدّمه لبنك أو حاضنة.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section section--tight">
+  <div class="section__head"><h2>مبني على السياق الجزائري</h2></div>
+  <dl class="dz">
+    <div><dt>الضرائب</dt><dd>يختار النظام بين IFU والنظام الحقيقي بحسب الشكل القانوني وسقف رقم الأعمال.</dd></div>
+    <div><dt>TVA</dt><dd>تُحسب مع ترحيل الرصيد الدائن وتسديد صافيها في الشهر التالي.</dd></div>
+    <div><dt>الأجور</dt><dd>أعباء الضمان الاجتماعي على صاحب العمل مضافة إلى كل أجر.</dd></div>
+    <div><dt>التمويل</dt><dd>مقارنة قرض بنكي ودعم ANADE وقرض ANGEM المصغّر وشريك مساهم.</dd></div>
+  </dl>
+  <p class="muted" style="margin-top:14px;font-size:.9rem">النسب مأخوذة من مصادر عامة وتُعدَّل من ملف إعدادات واحد. راجعها لدى الجهات الرسمية قبل الاعتماد عليها.</p>
+</section>
+
+<section class="cta-band">
+  <div class="cta-band__in">
+    <div><h2>جرّب بقالب جاهز أو بأرقامك</h2><p>محل ملابس، ورشة خياطة، أو مطعم وجبات سريعة. عدّل الأرقام وشاهد النتيجة تتغير.</p></div>
+    {% if user %}<a class="btn btn--light btn--lg" href="{{ url_for('web.projects') }}">افتح مشاريعي</a>
+    {% else %}<a class="btn btn--light btn--lg" href="{{ url_for('web.register') }}">أنشئ حساباً</a>{% endif %}
+  </div>
+</section>
+{% include 'partials/site_footer.html' %}
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', filename='js/pages/landing.js') }}"></script>{% endblock %}

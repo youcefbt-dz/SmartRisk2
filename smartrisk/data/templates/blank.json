@@ -1,0 +1,23 @@
+{
+  "_meta": {
+    "title": "مشروع فارغ",
+    "description": "ابدأ من الصفر وأدخل أرقامك بنفسك.",
+    "icon": "plus"
+  },
+  "name": "مشروع جديد",
+  "sector": "commerce",
+  "legal_form": "individual",
+  "start_cash": 0,
+  "products": [
+    {
+      "name": "منتج 1",
+      "activity": "goods",
+      "price": 0,
+      "unit_cost": 0,
+      "units": 0,
+      "growth": 0
+    }
+  ],
+  "fixed_costs": [],
+  "staff": []
+}

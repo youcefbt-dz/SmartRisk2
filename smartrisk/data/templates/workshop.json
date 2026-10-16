@@ -1,0 +1,112 @@
+{
+  "_meta": {
+    "title": "ورشة خياطة",
+    "description": "إنتاج بسيط بقرض تجهيز وطاقة إنتاجية محدودة (مناسب لتجربة مزيج المنتجات).",
+    "icon": "scissors"
+  },
+  "name": "ورشة خياطة",
+  "sector": "production",
+  "legal_form": "individual",
+  "city": "باتنة",
+  "start_cash": 600000,
+  "products": [
+    {
+      "name": "فساتين",
+      "activity": "goods",
+      "price": 6500,
+      "unit_cost": 3000,
+      "units": 40,
+      "growth": 2,
+      "capacity_per_unit": 5,
+      "max_units": 70,
+      "elasticity": -1.4
+    },
+    {
+      "name": "عبايات",
+      "activity": "goods",
+      "price": 5200,
+      "unit_cost": 2300,
+      "units": 50,
+      "growth": 1.5,
+      "capacity_per_unit": 3.5,
+      "max_units": 80,
+      "elasticity": -1.5
+    },
+    {
+      "name": "تعديل وتصليح",
+      "activity": "services",
+      "price": 900,
+      "unit_cost": 150,
+      "units": 120,
+      "growth": 1,
+      "capacity_per_unit": 0.8,
+      "max_units": 200,
+      "elasticity": -1.2
+    }
+  ],
+  "seasonality": [
+    0.9,
+    0.9,
+    1.0,
+    1.4,
+    1.2,
+    0.9,
+    0.8,
+    0.9,
+    1.1,
+    0.9,
+    0.9,
+    1.2
+  ],
+  "fixed_costs": [
+    {
+      "name": "إيجار الورشة",
+      "amount": 35000
+    },
+    {
+      "name": "كهرباء وصيانة",
+      "amount": 15000
+    }
+  ],
+  "staff": [
+    {
+      "role": "صاحبة الورشة",
+      "count": 1,
+      "gross": 45000
+    },
+    {
+      "role": "خيّاطة",
+      "count": 2,
+      "gross": 30000
+    }
+  ],
+  "working_capital": {
+    "customer_days": 20,
+    "supplier_days": 25,
+    "inventory_days": 25
+  },
+  "capacity": {
+    "total": 600,
+    "unit_label": "ساعة عمل",
+    "budget": 0
+  },
+  "capex": [
+    {
+      "name": "آلات خياطة",
+      "amount": 700000,
+      "month": 1,
+      "life_years": 8
+    }
+  ],
+  "loans": [
+    {
+      "name": "قرض تجهيز",
+      "principal": 700000,
+      "rate": 3,
+      "months": 48,
+      "grace": 6,
+      "start_month": 1
+    }
+  ],
+  "one_offs": []
+}

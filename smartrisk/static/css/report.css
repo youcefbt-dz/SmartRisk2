@@ -1,0 +1,13 @@
+.report-toolbar { position: sticky; top: 0; z-index: 20; display: flex; justify-content: space-between; gap: 10px; padding: 10px 24px; background: rgba(255,255,255,.95); border-bottom: 1px solid var(--line); backdrop-filter: blur(8px); }
+.report { max-width: 900px; margin: 24px auto 60px; padding: 40px 44px; background: #fff; border: 1px solid var(--line); border-radius: 12px; box-shadow: var(--shadow-1); }
+.rp-head { display: flex; justify-content: space-between; gap: 20px; align-items: flex-start; padding-bottom: 20px; border-bottom: 4px solid var(--indigo-600); margin-bottom: 8px; }
+.rp-head h1 { font-size: 1.9rem; } .rp-head small { color: var(--indigo-500); font-weight: 600; } .rp-head p { color: var(--ink-3); }
+.rp-verdict { text-align: center; padding: 10px 22px; border-radius: 10px; color: #fff; background: var(--safe-fill); } .rp-verdict small { color: rgba(255,255,255,.85); display: block; } .rp-verdict b { font-size: 1.2rem; }
+.rp-verdict--warn { background: var(--warn-fill); } .rp-verdict--crit { background: var(--crit-fill); }
+.rp-sec { margin-top: 26px; break-inside: avoid; } .rp-sec h2 { font-size: 1.15rem; color: var(--indigo-600); border-inline-start: 4px solid var(--cyan-400); padding-inline-start: 10px; margin-bottom: 10px; }
+.rp-sec ul, .rp-sec ol { padding-inline-start: 22px; } .rp-sec li { margin: 4px 0; }
+.rp-pillars { list-style: none; display: flex; gap: 8px; flex-wrap: wrap; padding: 0 !important; margin-top: 10px; } .rp-pillars li { border: 1px solid var(--line-strong); border-radius: 99px; padding: 3px 14px; font-size: .9rem; }
+.rp-pillars .is-crit { border-color: var(--crit-fill); color: var(--crit); } .rp-pillars .is-warn { border-color: var(--warn-fill); } .rp-pillars .is-safe { border-color: var(--safe-fill); }
+.rp-note, .rp-foot { color: var(--ink-3); font-size: .85rem; margin-top: 8px; } .rp-foot { margin-top: 34px; padding-top: 14px; border-top: 1px solid var(--line); }
+@media (max-width: 700px) { .report { padding: 22px 16px; margin: 0; border-radius: 0; } .rp-head { flex-direction: column; } }
+@media print { body { background: #fff; } .report { border: 0; box-shadow: none; margin: 0; padding: 0; max-width: none; } .noprint { display: none !important; } .table-wrap { overflow: visible; } @page { size: A4; margin: 16mm; } }

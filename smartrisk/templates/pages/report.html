@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+{% block title %}تقرير {{ project_name }} — SmartRisk{% endblock %}
+{% block body %}
+<div class="report-toolbar noprint">
+  <a class="btn btn--ghost btn--sm" href="/app" id="backLink">رجوع للمشروع</a>
+  <button class="btn btn--sm" type="button" id="printBtn">طباعة / حفظ PDF</button>
+</div>
+<main class="report" id="report"><div class="empty"><span class="spin"></span></div></main>
+{% endblock %}
+{% block scripts %}
+<script src="{{ url_for('static', filename='js/lib/vendor/chart.umd.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='js/pages/report.js') }}"></script>
+{% endblock %}

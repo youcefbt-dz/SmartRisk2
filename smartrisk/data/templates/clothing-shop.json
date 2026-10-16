@@ -1,0 +1,96 @@
+{
+  "_meta": {
+    "title": "محل بيع ملابس",
+    "description": "تجارة تجزئة بمنتجين رئيسيين وموسمية أعياد ودخول مدرسي.",
+    "icon": "shirt"
+  },
+  "name": "محل ملابس",
+  "sector": "commerce",
+  "legal_form": "individual",
+  "city": "باتنة",
+  "start_cash": 450000,
+  "products": [
+    {
+      "name": "ملابس رجالية",
+      "activity": "goods",
+      "price": 3200,
+      "unit_cost": 1900,
+      "units": 55,
+      "growth": 1.5,
+      "elasticity": -1.6
+    },
+    {
+      "name": "ملابس نسائية",
+      "activity": "goods",
+      "price": 3800,
+      "unit_cost": 2200,
+      "units": 70,
+      "growth": 2,
+      "elasticity": -1.8
+    },
+    {
+      "name": "إكسسوارات",
+      "activity": "goods",
+      "price": 900,
+      "unit_cost": 450,
+      "units": 90,
+      "growth": 1,
+      "elasticity": -1.3
+    }
+  ],
+  "seasonality": [
+    0.8,
+    0.8,
+    0.9,
+    1.1,
+    1.3,
+    1.0,
+    0.9,
+    1.0,
+    1.3,
+    0.9,
+    0.8,
+    1.2
+  ],
+  "fixed_costs": [
+    {
+      "name": "إيجار المحل",
+      "amount": 60000
+    },
+    {
+      "name": "كهرباء وماء وإنترنت",
+      "amount": 12000
+    },
+    {
+      "name": "تسويق وإعلان",
+      "amount": 10000
+    }
+  ],
+  "staff": [
+    {
+      "role": "صاحب المشروع",
+      "count": 1,
+      "gross": 50000
+    },
+    {
+      "role": "بائعة",
+      "count": 1,
+      "gross": 32000
+    }
+  ],
+  "working_capital": {
+    "customer_days": 10,
+    "supplier_days": 15,
+    "inventory_days": 60
+  },
+  "capex": [
+    {
+      "name": "تجهيز المحل وعرض",
+      "amount": 300000,
+      "month": 1,
+      "life_years": 5
+    }
+  ],
+  "loans": [],
+  "one_offs": []
+}

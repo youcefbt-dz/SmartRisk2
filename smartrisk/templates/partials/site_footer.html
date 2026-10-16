@@ -1,0 +1,8 @@
+{% from 'partials/logo.html' import brand %}
+<footer class="site-footer">
+  <div class="site-footer__in">
+    {{ brand() }}
+    <p>مشروع جامعي بحثي. الأرقام والتوصيات تقديرية لمساعدتك على اتخاذ القرار، وليست استشارة مالية أو محاسبية رسمية.</p>
+    <a href="{{ url_for('web.guide') }}">الدليل والمنهجية</a>
+  </div>
+</footer>

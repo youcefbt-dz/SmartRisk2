@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% from 'partials/logo.html' import brand %}
+{% block title %}{{ 'إنشاء حساب' if mode == 'register' else 'تسجيل الدخول' }} — SmartRisk{% endblock %}
+{% block body %}
+<div class="auth">
+  <canvas class="bgfan" id="bgfan" aria-hidden="true"></canvas>
+  <header class="site-header"><div class="site-header__in">{{ brand() }}<div class="site-header__end"><a class="btn btn--light btn--sm" href="{{ url_for('web.guide') }}">الدليل</a></div></div></header>
+  <main class="auth__main">
+    <div class="auth__card">
+      <h1>{{ 'إنشاء حساب' if mode == 'register' else 'تسجيل الدخول' }}</h1>
+      <p class="muted" style="margin-bottom:18px">{{ 'احفظ مشاريعك وتابعها من أي جهاز.' if mode == 'register' else 'أهلاً بعودتك. تابع مشاريعك من حيث توقفت.' }}</p>
+      <form id="authForm" class="stack" data-mode="{{ mode }}" novalidate>
+        {% if mode == 'register' %}
+        <label class="field"><span class="field__label">الاسم</span><span class="field__box"><input class="input" name="name" autocomplete="name" maxlength="60"></span></label>
+        {% endif %}
+        <label class="field"><span class="field__label">البريد الإلكتروني</span><span class="field__box"><input class="input is-num" name="email" type="email" autocomplete="email" required dir="ltr"></span></label>
+        <label class="field"><span class="field__label">كلمة المرور</span><span class="field__box"><input class="input is-num" name="password" type="password" autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}" required minlength="8" dir="ltr"></span>{% if mode == 'register' %}<span class="field__hint">8 أحرف على الأقل.</span>{% endif %}</label>
+        <p class="error-text" id="authErr" role="alert"></p>
+        <button class="btn btn--block btn--lg" type="submit" id="authBtn">{{ 'إنشاء الحساب' if mode == 'register' else 'دخول' }}</button>
+      </form>
+      <p class="auth__alt">
+        {% if mode == 'register' %}لديك حساب؟ <a href="{{ url_for('web.login') }}">سجّل الدخول</a>
+        {% else %}ليس لديك حساب؟ <a href="{{ url_for('web.register') }}">أنشئ حساباً</a>{% endif %}
+      </p>
+    </div>
+  </main>
+</div>
+{% endblock %}
+{% block scripts %}<script type="module" src="{{ url_for('static', filename='js/pages/login.js') }}"></script>{% endblock %}
