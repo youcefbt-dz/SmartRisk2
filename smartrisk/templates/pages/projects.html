@@ -2,15 +2,14 @@
 {% block title %}مشاريعي — SmartRisk{% endblock %}
 {% block body %}
 {% set solid = true %}{% include 'partials/site_header.html' %}
-<main class="section" style="padding-top:36px">
-  <div class="projects-head">
-    <div><h1 style="font-size:1.9rem">مشاريعي</h1><p class="muted">كل مشروع يُحفظ تلقائياً ويمكن تكراره أو تصديره.</p></div>
-    <div class="row">
-      <button class="btn btn--ghost" type="button" id="importBtn">استيراد ملف</button>
-      <button class="btn" type="button" id="newBtn">مشروع جديد</button>
-      <input type="file" id="importFile" accept="application/json,.json" hidden>
-    </div>
-  </div>
+<section class="wshead wshead--page"><div class="wshead__in">
+  <div class="wshead__text"><h1>مشاريعي</h1><p>كل مشروع يُحفظ تلقائياً ويمكن تكراره أو تصديره.</p></div>
+  <div class="row">
+    <button class="btn btn--ghost btn--light" type="button" id="importBtn">استيراد ملف</button>
+    <button class="btn btn--white" type="button" id="newBtn">مشروع جديد</button>
+    <input type="file" id="importFile" accept="application/json,.json" hidden>
+  </div></div></section>
+<main class="section" style="padding-top:28px">
   <div id="projectsView" class="grid grid--auto" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))"></div>
 </main>
 {% include 'partials/site_footer.html' %}

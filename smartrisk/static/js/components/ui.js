@@ -24,7 +24,7 @@ export function kpi({ label, value, unit, sub, level, term: t }) {
 
 export function panel({ title, sub, actions, accent = false, flush = false, ico } = {}, ...children) {
   const head = (title || actions) ? h('div', { class: 'panel__head' },
-    h('div', {}, title ? h('h3', { class: 'panel__title' }, ico ? icon(ico) : null, title) : null, sub ? h('p', { class: 'panel__sub' }, sub) : null),
+    h('div', {}, title ? h('h3', { class: 'panel__title' }, ico ? h('span', { class: 'ico-chip' }, icon(ico)) : null, title) : null, sub ? h('p', { class: 'panel__sub' }, sub) : null),
     actions ? h('div', { class: 'row' }, actions) : null) : null;
   return h('section', { class: `panel${accent ? ' panel--accent' : ''}${flush ? ' panel--flush' : ''}` }, head, ...children);
 }

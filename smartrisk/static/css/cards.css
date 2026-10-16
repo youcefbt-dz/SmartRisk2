@@ -1,0 +1,51 @@
+/* ===== لغة البطاقات: متوازيات الأضلاع (من الأزرار المائلة في الهوية) بدل الخطوط الملوّنة ===== */
+.panel, .kpi, .rs, .kri, .pcard, .advice li, .acc, .live { position: relative; isolation: isolate; overflow: hidden; --tint: 0, 215, 255; --tint2: 67, 58, 193; }
+.panel::after, .kpi::after, .rs::after, .kri::after, .pcard::after, .advice li::after, .acc::after {
+  content: ""; position: absolute; z-index: -1; pointer-events: none; top: -40%; inset-inline-end: -7%; width: 34%; height: 190%;
+  background: linear-gradient(160deg, rgba(var(--tint), .13), rgba(var(--tint2), .07)); transform: skewX(var(--skew)); border-radius: 22px;
+}
+.panel > *, .kpi > *, .rs > *, .kri > *, .advice li > * { position: relative; }
+
+/* إزالة كل الخطوط الملوّنة القديمة */
+.panel--accent::before, .main .kpi::before, .main .panel__title::before, .nav a[aria-current="page"]::before { content: none !important; }
+.kpi, .kpi--safe, .kpi--warn, .kpi--crit, .kpi--brand, .rs--crit, .rs--warn, .rs--safe, .advice li, .advice li.is-crit, .advice li.is-warn, .advice li.is-safe, .note, .note--warn, .note--crit, .note--safe { border-inline-start: 1px solid var(--line) !important; }
+.pcard__bar { display: none; }
+.main .kpi::after { height: 190%; top: -40%; background: linear-gradient(160deg, rgba(var(--tint), .13), rgba(var(--tint2), .07)); inset-inline: auto; inset-inline-end: -7%; }
+
+/* حالات الخطر: غسول لوني خفيف + زخرفة بنفس اللون */
+.kpi--safe, .rs--safe, .advice li.is-safe, .kri--safe, .note--safe { --tint: 18, 184, 134; --tint2: 18, 184, 134; background-image: linear-gradient(135deg, #fff 45%, var(--safe-bg)); }
+.kpi--warn, .rs--warn, .advice li.is-warn, .kri--warn, .note--warn { --tint: 245, 165, 36; --tint2: 245, 165, 36; background-image: linear-gradient(135deg, #fff 45%, var(--warn-bg)); }
+.kpi--crit, .rs--crit, .advice li.is-crit, .kri--crit, .note--crit { --tint: 238, 66, 102; --tint2: 238, 66, 102; background-image: linear-gradient(135deg, #fff 45%, var(--crit-bg)); }
+.kri--crit, .kri--warn { border-color: var(--line); }
+.note { border: 1px solid var(--line) !important; border-radius: var(--r-md); }
+.note--warn { border-color: #f1d7a0 !important; } .note--crit { border-color: #f6b9c6 !important; } .note--safe { border-color: #b9e8d6 !important; }
+
+/* البطاقة المميزة: خلفية بتدرّج الهوية الفاتح */
+.panel--accent { background-image: linear-gradient(135deg, #fff 35%, #eef2ff 70%, #e3f8ff); --tint: 0, 215, 255; --tint2: 67, 58, 193; }
+.panel--accent::after { opacity: 1.6; }
+
+/* عنوان البطاقة: أيقونة داخل متوازي أضلاع متدرّج */
+.panel__title .ico-chip, .acc > summary .ico-chip { display: inline-grid; place-items: center; width: 34px; height: 30px; border-radius: 8px; background: var(--grad-btn); transform: skewX(var(--skew)); box-shadow: 0 8px 16px -10px var(--indigo-700); flex: none; }
+.ico-chip .icon { transform: skewX(calc(-1 * var(--skew))); color: #fff !important; width: 1.05em; height: 1.05em; }
+.acc > summary .icon { color: inherit; }
+.acc > summary::after { margin-inline-start: auto; }
+
+/* بطاقات المشاريع */
+.pcard { position: relative; }
+.pcard:hover { transform: translateY(-3px); }
+.pcard__title { font-size: 1.15rem; }
+
+/* بطاقة المؤشر: الرقم هو البطل */
+.kpi__value { font-size: 1.7rem; letter-spacing: -.01em; }
+.kpi__label { font-weight: 500; }
+
+/* صفوف المحرر والشريط الحي */
+.list-editor__row { border-radius: 16px; background: linear-gradient(135deg, #fff 50%, #f4f6ff); }
+.live { overflow: visible; border-radius: 16px; }
+.live::after { content: none; }
+.rs { background-color: #fff; }
+.advice li { border-radius: 16px; }
+.empty { position: relative; }
+.acc::after { width: 20%; height: 260px; top: -90px; }
+.list-editor__cells { align-items: start !important; }
+.list-editor__del { margin-top: 26px; }

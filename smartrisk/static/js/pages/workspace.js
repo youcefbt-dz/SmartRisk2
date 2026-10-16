@@ -16,7 +16,7 @@ let token = 0;
 const SAVE_TEXT = { idle: '', dirty: 'تعديلات غير محفوظة…', saving: 'جارٍ الحفظ…', saved: 'تم الحفظ', error: 'تعذّر الحفظ' };
 store.on('savestate', (s) => { const el = $('#saveState'); el.dataset.state = s; el.textContent = SAVE_TEXT[s] || ''; });
 store.on('error', (m) => toast(m, 'crit'));
-store.on('saved', (meta) => { $('#sbName').textContent = meta.name; document.title = `${meta.name} — SmartRisk`; renderSidePill(); });
+store.on('saved', (meta) => { $('#sbName').textContent = meta.name; $('#crumbName').textContent = meta.name; document.title = `${meta.name} — SmartRisk`; renderSidePill(); });
 
 function renderSidePill() {
   const sn = store.state.meta?.snapshot; const lvl = sn && !sn.empty ? sn.level : null;
@@ -37,7 +37,7 @@ const ctx = {
   store,
   setBadge(id, level) { if (badges[id]) badges[id].className = `dot${level ? ' dot--' + level : ''}`; },
   goto(id) { location.hash = `#/${id}`; },
-  title(t) { $('#viewTitle').textContent = t; },
+  title(t, d = '') { $('#viewTitle').textContent = t; $('#viewSub').textContent = d; },
 };
 
 async function route() {
@@ -48,7 +48,7 @@ async function route() {
   destroyAll(view);
   document.querySelectorAll('#nav a').forEach((a) => (a.dataset.id === mod.id ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current')));
   shell.classList.remove('nav-open');
-  ctx.title(mod.title);
+  ctx.title(mod.title, mod.desc);
   mount(view, loading('جارٍ التحميل…'));
   window.scrollTo({ top: 0 });
   try {

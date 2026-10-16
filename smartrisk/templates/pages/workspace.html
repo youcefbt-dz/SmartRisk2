@@ -18,11 +18,16 @@
   </aside>
   <div class="scrim" id="scrim"></div>
   <div class="main">
-    <header class="topbar">
-      <button class="topbar__burger" type="button" id="navBurger" aria-label="القائمة"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
-      <h1 id="viewTitle">…</h1>
-      <span class="spacer"></span>
-      <span class="save-state" id="saveState" data-state="idle" aria-live="polite"></span>
+    <header class="wshead">
+      <div class="wshead__in">
+        <button class="topbar__burger" type="button" id="navBurger" aria-label="القائمة"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+        <div class="wshead__text">
+          <nav class="wshead__crumb" aria-label="مسار التنقل"><a href="{{ url_for('web.projects') }}">مشاريعي</a><span>/</span><span id="crumbName">{{ project_name }}</span></nav>
+          <h1 id="viewTitle">…</h1>
+          <p id="viewSub"></p>
+        </div>
+        <span class="save-state" id="saveState" data-state="idle" aria-live="polite"></span>
+      </div>
     </header>
     <main class="content" id="view" tabindex="-1"></main>
   </div>

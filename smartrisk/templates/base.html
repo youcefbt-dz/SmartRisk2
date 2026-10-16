@@ -8,7 +8,7 @@
   <meta name="description" content="{% block desc %}منصة عربية تحاكي آلاف السيناريوهات لتخبرك باحتمال نفاد سيولة مشروعك، وتقترح قرارات التسعير والتمويل.{% endblock %}">
   <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/favicon.svg') }}">
   <link rel="preload" href="{{ url_for('static', filename='fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
-  {% for css in ['fonts', 'tokens', 'base', 'components', 'layout', 'landing', 'app', 'report'] %}
+  {% for css in ['fonts', 'tokens', 'base', 'components', 'layout', 'landing', 'app', 'cards', 'report'] %}
   <link rel="stylesheet" href="{{ url_for('static', filename='css/' ~ css ~ '.css') }}">
   {% endfor %}
   <script type="application/json" id="boot">{{ boot|safe }}</script>

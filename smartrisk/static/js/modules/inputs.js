@@ -9,7 +9,7 @@ const MONTH_OPTS = Object.fromEntries(MONTH_NAMES.map((m, i) => [String(i + 1), 
 
 function section(title, ico, sub, open, ...children) {
   return h('details', { class: 'acc', open: open || null },
-    h('summary', {}, icon(ico), title, sub ? h('small', {}, sub) : null),
+    h('summary', {}, h('span', { class: 'ico-chip' }, icon(ico)), title, sub ? h('small', {}, sub) : null),
     h('div', { class: 'acc__body' }, ...children));
 }
 const grid = (...c) => h('div', { class: 'form-grid' }, ...c);
@@ -44,7 +44,7 @@ export default {
     const general = grid(
       textField({ label: 'اسم المشروع', value: d.name, onInput: (v) => set((x) => { x.name = v || 'مشروع'; }), wide: true }),
       selectField({ label: 'القطاع', value: d.sector, options: O.sectors || {}, onInput: (v) => set((x) => { x.sector = v; }) }),
-      selectField({ label: 'الشكل القانوني', value: d.legal_form, options: O.legal_forms || {}, onInput: (v) => set((x) => { x.legal_form = v; }), term: 'regime', hint: 'يحدد النظام الضريبي الافتراضي.' }),
+      selectField({ label: 'الشكل القانوني', value: d.legal_form, options: O.legalForms || {}, onInput: (v) => set((x) => { x.legal_form = v; }), term: 'regime', hint: 'يحدد النظام الضريبي الافتراضي.' }),
       textField({ label: 'المدينة', value: d.city, onInput: (v) => set((x) => { x.city = v; }) }),
       selectField({ label: 'شهر بداية النشاط', value: String(d.start_month), options: MONTH_OPTS, onInput: (v) => set((x) => { x.start_month = Number(v); }), hint: 'لتطبيق الموسمية على الأشهر الصحيحة.' }),
       num('مدة التوقع', () => d.horizon, (x, v) => { x.horizon = Math.min(60, Math.max(12, Math.round(v) || 36)); }, { unit: 'شهر', min: 12, max: 60, hint: 'من 12 إلى 60 شهراً.' }),
@@ -187,7 +187,7 @@ export default {
         num('ميزانية التشغيل الشهرية', () => d.capacity.budget, (x, v) => { x.capacity.budget = v; }, { unit: 'دج', min: 0, hint: '0 = بلا قيد.' })),
     ];
 
-    mount(el, h('div', { class: 'page-head' }, h('p', {}, 'عدّل الأرقام وسيُحفظ كل شيء تلقائياً. الشريط أدناه يتحدّث مباشرة لترى أثر كل تغيير.')),
+    mount(el,
       store.state.warnings.length ? note(store.state.warnings.join(' • '), 'warn') : null,
       live,
       section('معلومات المشروع', 'folder', 'الاسم والشكل القانوني والسيولة الافتتاحية', true, general),

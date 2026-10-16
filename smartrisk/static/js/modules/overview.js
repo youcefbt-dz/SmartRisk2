@@ -111,7 +111,8 @@ export default {
         kpis(s),
         h('div', { class: 'two-col' }, fanPanel(s), planPanel(s)),
         yearly(s),
-        h('div', { class: 'two-col' }, advicePanel(s), kriPanel(s)));
+        kriPanel(s),
+        advicePanel(s));
     }, { loadingText: 'جارٍ تحليل مشروعك…' }));
   },
 };
