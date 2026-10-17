@@ -6,7 +6,8 @@
   <meta name="theme-color" content="#231d70">
   <title>{% block title %}SmartRisk — إدارة المخاطر المالية للمشاريع الصغيرة{% endblock %}</title>
   <meta name="description" content="{% block desc %}منصة عربية تحاكي آلاف السيناريوهات لتخبرك باحتمال نفاد سيولة مشروعك، وتقترح قرارات التسعير والتمويل.{% endblock %}">
-  <link rel="icon" type="image/svg+xml" href="{{ url_for('static', filename='img/favicon.svg') }}">
+  <link rel="icon" type="image/png" href="{{ url_for('static', filename='img/logo/logo.png') }}">
+  <link rel="apple-touch-icon" href="{{ url_for('static', filename='img/logo/logo.png') }}">
   <link rel="preload" href="{{ url_for('static', filename='fonts/ibm-plex-sans-arabic-arabic-500-normal.woff2') }}" as="font" type="font/woff2" crossorigin>
   {% for css in ['fonts', 'tokens', 'base', 'components', 'layout', 'landing', 'app', 'cards', 'report', 'guide'] %}
   <link rel="stylesheet" href="{{ url_for('static', filename='css/' ~ css ~ '.css') }}">

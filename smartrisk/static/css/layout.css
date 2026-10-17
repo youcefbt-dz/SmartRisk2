@@ -111,3 +111,849 @@
 .btn--white { color: var(--indigo-700); } .btn--white::before { background: #fff; box-shadow: 0 10px 24px -12px rgba(0, 0, 0, .5); }
 .wshead--page { padding-top: 34px; } .wshead--page .wshead__in { align-items: flex-end; flex-wrap: wrap; }
 .site-header--solid + .wshead { margin-top: 0; }
+
+/* ===== SmartRisk workspace navigation — refined product UI ===== */
+.sidebar {
+  width: var(--sidebar-w);
+  padding: 22px 14px 16px;
+  background: #100a43;
+  border-inline-end: 1px solid rgba(255,255,255,.07);
+}
+.sidebar .brand {
+  min-height: 70px;
+  padding: 4px 10px 20px;
+  gap: 13px;
+  border-bottom: 1px solid rgba(255,255,255,.09);
+  margin-bottom: 16px;
+}
+.brand__logo { width: 58px; height: 58px; object-fit: contain; display: block; flex: none; }
+.sidebar .brand > span { font-size: 1.48rem; letter-spacing: -.025em; }
+.sidebar .brand b { color: #00d7ff; }
+.sidebar__project {
+  margin: 0 4px 17px;
+  padding: 14px 15px 13px;
+  border-radius: 14px;
+  background: rgba(255,255,255,.055);
+  border: 1px solid rgba(255,255,255,.10);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.035);
+}
+.sidebar__project-top { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:7px; }
+.sidebar__project-kicker { color: rgba(255,255,255,.53); font-size:.72rem; font-weight:600; letter-spacing:.02em; }
+.sidebar__project-status { color: #a9ead5; font-size:.68rem; white-space:nowrap; }
+.sidebar__project-status i { display:inline-block; width:6px; height:6px; border-radius:50%; background:#28c997; margin-inline-end:4px; box-shadow:0 0 0 3px rgba(40,201,151,.10); }
+.sidebar__project strong { font-size:1rem; line-height:1.55; color:#fff; }
+.sidebar__project-meta { margin-top:9px; display:flex; justify-content:space-between; align-items:center; gap:8px; color:rgba(255,255,255,.43); font-size:.68rem; }
+.sidebar__project-meta .pill { margin:0; }
+.nav { gap: 3px; margin-top: 0; }
+.nav__section-label { padding: 11px 12px 5px; color: rgba(255,255,255,.38); font-size:.66rem; font-weight:700; letter-spacing:.035em; }
+.nav__section-label:not(:first-child) { margin-top:7px; }
+.nav a, .nav button {
+  min-height: 43px;
+  padding: 9px 12px;
+  border-radius: 10px;
+  gap: 11px;
+  color: rgba(255,255,255,.70);
+  font-size:.91rem;
+  transition: background .16s ease, color .16s ease, transform .16s ease;
+}
+.nav a .icon, .nav button .icon { width:19px; height:19px; flex:none; opacity:.78; }
+.nav__label { min-width:0; flex:1; }
+.nav a:hover, .nav button:hover { background:rgba(255,255,255,.065); color:#fff; transform:translateX(-1px); }
+.nav a[aria-current="page"] {
+  background: rgba(0,215,255,.105);
+  color:#fff;
+  font-weight:600;
+  box-shadow:none;
+}
+.nav a[aria-current="page"]::before {
+  content:""; position:absolute; inset-block:8px; inset-inline-end:0; width:3px; border-radius:3px; background:#00d7ff;
+}
+.nav a[aria-current="page"] .icon { color:#00d7ff; opacity:1; }
+.nav .dot { width:6px; height:6px; margin-inline-start:auto; flex:none; opacity:.95; }
+.sidebar__foot { padding-top:13px; border-top:1px solid rgba(255,255,255,.09); }
+.sidebar__foot .nav a, .sidebar__foot .nav button { min-height:39px; color:rgba(255,255,255,.58); font-size:.84rem; }
+.sidebar__user { margin:8px 6px 0; padding:9px 10px; border-radius:9px; background:rgba(255,255,255,.035); color:rgba(255,255,255,.42); font-size:.70rem; }
+@media (min-width: 961px) { .sidebar { width:var(--sidebar-w); } }
+@media (max-width: 960px) {
+  .sidebar { width:min(310px,86vw); padding-top:18px; }
+  .sidebar .brand { min-height:68px; }
+  .brand__logo { width:54px; height:54px; }
+}
+
+
+/* ===== Workspace: top identity bar + scrollbar-free sidebar ===== */
+.workspace-topbar {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 24px;
+  background: #fff;
+  border-bottom: 1px solid #e7e9f0;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+}
+.workspace-topbar__brand,
+.workspace-topbar__project,
+.workspace-topbar__risk {
+  min-height: 42px;
+  display: flex;
+  align-items: center;
+}
+.workspace-topbar__brand { padding-inline-end: 24px; border-inline-end: 1px solid #e5e7ee; }
+.workspace-brand { display: inline-flex; align-items: center; gap: 9px; color: #172033; text-decoration: none; font-weight: 700; font-size: 1.08rem; direction: ltr; }
+.workspace-brand img { width: 40px; height: 40px; object-fit: contain; display: block; }
+.workspace-brand b { color: #433ac1; }
+.workspace-topbar__project { padding-inline: 24px; flex-direction: column; align-items: flex-start; justify-content: center; gap: 1px; min-width: 190px; }
+.workspace-topbar__eyebrow { color: #7c8495; font-size: .70rem; display: flex; align-items: center; gap: 8px; }
+.workspace-topbar__active { color: #16805f; font-size: .68rem; display: inline-flex; align-items: center; gap: 4px; }
+.workspace-topbar__active i { width: 5px; height: 5px; border-radius: 50%; background: #20b77d; }
+.workspace-topbar__project strong { color: #20283a; font-size: .96rem; line-height: 1.35; max-width: 28ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.workspace-topbar__risk { margin-inline-start: auto; gap: 10px; font-size: .77rem; }
+.workspace-topbar__risk-brand { color: #8b92a2; font-family: var(--mono); direction: ltr; }
+.workspace-topbar__risk-divider { width: 1px; height: 18px; background: #e3e6ed; }
+.workspace-topbar__risk #topRiskPill { display: inline-flex; align-items: center; min-height: 28px; }
+.workspace-topbar .topbar__burger { display: none; }
+
+.sidebar {
+  overflow: hidden !important;
+  scrollbar-width: none !important;
+  -ms-overflow-style: none;
+}
+.sidebar::-webkit-scrollbar { width: 0 !important; height: 0 !important; display: none; }
+.sidebar__nav-title { padding: 8px 12px 10px; color: rgba(255,255,255,.34); font-size: .66rem; font-weight: 700; letter-spacing: .04em; }
+.sidebar .nav { overflow: visible; }
+.sidebar__foot { margin-top: auto; }
+
+@media (max-width: 960px) {
+  .workspace-topbar { min-height: 64px; padding: 0 14px; }
+  .workspace-topbar__brand { padding-inline-end: 14px; border-inline-end: 0; }
+  .workspace-brand span { display: none; }
+  .workspace-topbar__project { padding-inline: 14px; min-width: 0; }
+  .workspace-topbar__risk { display: none; }
+  .workspace-topbar .topbar__burger { display: grid; margin-inline-start: auto; width: 40px; height: 40px; }
+}
+
+/* ===== SmartRisk — premium workspace identity bar ===== */
+.workspace-topbar {
+  min-height: 74px;
+  padding: 0 28px;
+  background: rgba(255,255,255,.97);
+  border-bottom: 1px solid #dfe3ec;
+  box-shadow: 0 1px 0 rgba(16,35,63,.025);
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  isolation: isolate;
+}
+.workspace-topbar::before {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  top: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #10233f 0%, #33507a 48%, #00a9c7 100%);
+}
+.workspace-topbar__brand {
+  min-height: 44px;
+  padding-inline-end: 25px;
+  border-inline-end: 1px solid #e2e6ee;
+}
+.workspace-brand {
+  gap: 10px;
+  color: #10233f;
+  font-size: 1.05rem;
+  letter-spacing: -.025em;
+}
+.workspace-brand img { width: 42px; height: 42px; }
+.workspace-brand b { color: #33507a; }
+.workspace-topbar__project {
+  min-width: 0;
+  flex: 1;
+  padding: 0 28px;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.workspace-topbar__eyebrow {
+  color: #647083;
+  font-size: .72rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.workspace-topbar__active {
+  margin-inline-start: 8px;
+  color: #18745a;
+  font-size: .69rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+}
+.workspace-topbar__active i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #24a779;
+  box-shadow: 0 0 0 3px rgba(36,167,121,.10);
+}
+.workspace-topbar__project strong {
+  position: relative;
+  color: #18253a;
+  font-size: .98rem;
+  font-weight: 700;
+  max-width: min(42ch, 42vw);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.workspace-topbar__project strong::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 18px;
+  margin-inline-end: 13px;
+  vertical-align: -4px;
+  background: #d8dee8;
+}
+.workspace-topbar__risk {
+  min-height: 44px;
+  padding-inline-start: 25px;
+  border-inline-start: 1px solid #e2e6ee;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  margin-inline-start: auto;
+}
+.workspace-topbar__risk-brand {
+  color: #9aa3b2;
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .03em;
+}
+.workspace-topbar__risk-divider { display: none; }
+.workspace-topbar__risk #topRiskPill {
+  min-height: 30px;
+  display: inline-flex;
+  align-items: center;
+}
+.workspace-topbar .topbar__burger { display: none; }
+
+/* The workspace sidebar is navigation only; no nested category headings. */
+.sidebar__nav-title,
+.nav__section-label { display: none !important; }
+.sidebar .nav { gap: 5px; }
+.sidebar .nav a, .sidebar .nav button { border-radius: 8px; }
+
+@media (max-width: 960px) {
+  .workspace-topbar { min-height: 66px; padding: 0 15px; }
+  .workspace-topbar__brand { padding-inline-end: 14px; border-inline-end: 0; }
+  .workspace-brand span { display: none; }
+  .workspace-topbar__project { padding: 0 14px; gap: 9px; }
+  .workspace-topbar__eyebrow { display: none; }
+  .workspace-topbar__project strong { max-width: 38vw; }
+  .workspace-topbar__project strong::before { display: none; }
+  .workspace-topbar__risk { padding-inline-start: 14px; border-inline-start: 0; }
+  .workspace-topbar__risk-brand { display: none; }
+  .workspace-topbar .topbar__burger { display: grid; margin-inline-start: 8px; width: 40px; height: 40px; }
+}
+
+/* ================================================================
+   SmartRisk — workspace identity bar / final visual system
+   ================================================================ */
+.workspace-topbar {
+  min-height: 78px;
+  height: 78px;
+  padding: 0 30px;
+  display: grid;
+  grid-template-columns: minmax(260px, 1fr) minmax(220px, auto) minmax(260px, 1fr);
+  align-items: center;
+  gap: 24px;
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: #fff;
+  border-bottom: 1px solid #dfe4ec;
+  box-shadow: 0 1px 0 rgba(16,35,63,.025), 0 8px 24px rgba(16,35,63,.035);
+  direction: ltr;
+}
+.workspace-topbar::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  height: 2px;
+  background: linear-gradient(90deg, #10233f 0%, #33507a 52%, #00a9c7 100%);
+}
+.workspace-topbar__left,
+.workspace-topbar__right {
+  min-width: 0;
+  display: flex;
+  align-items: center;
+}
+.workspace-topbar__left { gap: 18px; justify-content: flex-start; }
+.workspace-topbar__right { gap: 20px; justify-content: flex-end; }
+.workspace-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #10233f;
+  text-decoration: none;
+  direction: ltr;
+  flex: none;
+}
+.workspace-brand img { width: 42px; height: 42px; object-fit: contain; display: block; }
+.workspace-brand span { font-size: 1.08rem; font-weight: 750; letter-spacing: -.035em; }
+.workspace-brand b { color: #33507a; font-weight: 750; }
+.workspace-topbar__rule {
+  width: 1px;
+  height: 30px;
+  background: #dfe4ec;
+  flex: none;
+}
+.workspace-context { display: flex; align-items: center; gap: 10px; direction: rtl; white-space: nowrap; }
+.workspace-context__label { color: #687487; font-size: .78rem; font-weight: 650; }
+.workspace-context__state {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #177154;
+  font-size: .72rem;
+  font-weight: 650;
+}
+.workspace-context__state i {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #25a879;
+  box-shadow: 0 0 0 3px rgba(37,168,121,.10);
+}
+.workspace-topbar__center {
+  min-width: 0;
+  min-height: 46px;
+  padding: 0 28px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2px;
+  direction: rtl;
+  border-inline: 1px solid #e7eaf0;
+}
+.workspace-project__caption {
+  color: #929baa;
+  font-size: .65rem;
+  font-weight: 650;
+  letter-spacing: .02em;
+}
+.workspace-topbar__center strong {
+  max-width: min(34vw, 360px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #17243a;
+  font-size: .98rem;
+  font-weight: 720;
+}
+.workspace-risk {
+  min-height: 42px;
+  padding: 0 14px 0 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 13px;
+  direction: rtl;
+  border: 1px solid #e2e6ed;
+  border-radius: 9px;
+  background: #fbfcfd;
+}
+.workspace-risk__label { color: #7b8493; font-size: .70rem; font-weight: 600; white-space: nowrap; }
+.workspace-risk #topRiskPill { min-height: 26px; display: inline-flex; align-items: center; }
+.workspace-topbar .topbar__burger { display: none; }
+
+/* navigation is intentionally flat: no category/group labels */
+.sidebar__nav-title, .nav__section-label { display: none !important; }
+.sidebar { overflow: hidden !important; scrollbar-width: none !important; -ms-overflow-style: none; }
+.sidebar::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; }
+
+@media (max-width: 960px) {
+  .workspace-topbar {
+    height: 66px;
+    min-height: 66px;
+    padding: 0 14px;
+    grid-template-columns: 1fr auto;
+    gap: 12px;
+  }
+  .workspace-topbar__left { gap: 12px; }
+  .workspace-brand span { display: none; }
+  .workspace-topbar__rule { display: none; }
+  .workspace-context { display: none; }
+  .workspace-topbar__center {
+    order: 3;
+    display: none;
+  }
+  .workspace-topbar__right { gap: 8px; }
+  .workspace-risk { min-height: 38px; padding-inline: 10px; }
+  .workspace-risk__label { display: none; }
+  .workspace-topbar .topbar__burger { display: grid; width: 40px; height: 40px; }
+}
+
+/* ================================================================
+   SmartRisk workspace — floating identity + hover navigation
+   The workspace intentionally has no permanent top bar.
+   ================================================================ */
+.workspace-topbar { display: none !important; }
+
+.shell {
+  display: block;
+  min-height: 100vh;
+}
+
+.main {
+  min-width: 0;
+  min-height: 100vh;
+  padding-inline-start: 72px;
+  transition: padding-inline-start .28s cubic-bezier(.2,.75,.2,1);
+}
+
+/* The navigation is a quiet rail by default. It expands only while the pointer is over it. */
+.sidebar {
+  position: fixed !important;
+  inset-block: 0;
+  inset-inline-start: 0;
+  width: 72px !important;
+  min-width: 72px;
+  height: 100vh;
+  box-sizing: border-box;
+  padding: 18px 10px;
+  overflow: hidden !important;
+  z-index: 100;
+  border-inline-end: 1px solid rgba(255,255,255,.08);
+  box-shadow: 8px 0 28px rgba(5,18,38,.10);
+  transition: width .28s cubic-bezier(.2,.75,.2,1), box-shadow .28s ease, padding .28s ease;
+}
+
+.sidebar:hover,
+.sidebar:focus-within {
+  width: 274px !important;
+  padding-inline: 14px;
+  box-shadow: 12px 0 34px rgba(5,18,38,.18);
+}
+
+/* Keep the rail usable without ever exposing a scrollbar. */
+.sidebar::-webkit-scrollbar { display: none !important; width: 0 !important; }
+.sidebar { scrollbar-width: none !important; }
+
+/* Floating product/project identity — deliberately not a topbar. */
+.workspace-float-brand {
+  position: fixed;
+  inset-block-start: 18px;
+  inset-inline-start: 94px;
+  z-index: 80;
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  max-width: min(430px, calc(100vw - 120px));
+  min-height: 48px;
+  padding: 6px 12px 6px 8px;
+  background: rgba(255,255,255,.92);
+  border: 1px solid rgba(16,35,63,.09);
+  box-shadow: 0 8px 24px rgba(16,35,63,.08);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 13px;
+  direction: ltr;
+}
+.workspace-float-brand__product {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #10233f;
+  text-decoration: none;
+  font-weight: 700;
+  letter-spacing: -.02em;
+  white-space: nowrap;
+}
+.workspace-float-brand__product img { width: 34px; height: 34px; object-fit: contain; display:block; }
+.workspace-float-brand__product b { color:#33507a; }
+.workspace-float-brand__divider { width:1px; height:22px; background:#dfe4eb; flex:none; }
+.workspace-float-brand__project {
+  direction: rtl;
+  color:#4d586b;
+  font-size:.82rem;
+  font-weight:600;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  white-space:nowrap;
+  max-width:230px;
+}
+
+/* Collapsed rail: icons remain, labels become invisible rather than disappearing abruptly. */
+.sidebar .brand,
+.sidebar__project,
+.sidebar__nav-title,
+.sidebar__user,
+.sidebar .nav__section-label {
+  display: none !important;
+}
+.sidebar .nav { margin-top: 58px; gap: 5px; }
+.sidebar .nav a,
+.sidebar .nav button {
+  min-height: 44px;
+  width: 100%;
+  padding: 9px 11px;
+  justify-content: flex-start;
+  gap: 12px;
+  border-radius: 9px;
+  overflow: hidden;
+  white-space: nowrap;
+  transition: background .18s ease, color .18s ease, transform .18s ease;
+}
+.sidebar .nav__label {
+  opacity: 0;
+  transform: translateX(-7px);
+  transition: opacity .16s ease .02s, transform .24s cubic-bezier(.2,.75,.2,1);
+  pointer-events: none;
+}
+.sidebar:hover .nav__label,
+.sidebar:focus-within .nav__label {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+  transition-delay: .06s;
+}
+.sidebar .nav a .icon,
+.sidebar .nav button .icon { width:20px; height:20px; flex:none; opacity:.82; }
+.sidebar .nav a[aria-current="page"] .icon { opacity:1; }
+.sidebar .nav .dot { opacity:0; transition:opacity .16s ease; }
+.sidebar:hover .nav .dot,
+.sidebar:focus-within .nav .dot { opacity:.95; }
+.sidebar .sidebar__foot { margin-top:auto; padding-top:12px; }
+
+/* On desktop, hover is the primary interaction; no click-to-pin state is needed. */
+@media (min-width: 961px) {
+  .shell.nav-open .sidebar { width:72px !important; }
+  .shell.nav-open .main { padding-inline-start:72px; }
+}
+
+/* Mobile/tablet: retain a conventional drawer because hover is not reliable on touch devices. */
+@media (max-width: 960px) {
+  .main { padding-inline-start: 0; }
+  .sidebar {
+    width: min(292px, 86vw) !important;
+    min-width: 0;
+    padding: 18px 14px;
+    transform: translateX(-105%);
+    transition: transform .28s cubic-bezier(.2,.75,.2,1), box-shadow .28s ease;
+  }
+  html[dir="rtl"] .sidebar { transform: translateX(105%); }
+  .shell.nav-open .sidebar { transform: translateX(0); width:min(292px,86vw) !important; }
+  .sidebar .nav { margin-top: 8px; }
+  .sidebar .nav__label { opacity:1; transform:none; pointer-events:auto; }
+  .sidebar .nav .dot { opacity:.95; }
+  .workspace-float-brand {
+    inset-block-start: 12px;
+    inset-inline-start: 62px;
+    max-width: calc(100vw - 76px);
+    min-height: 44px;
+    padding: 5px 9px 5px 7px;
+    border-radius:11px;
+  }
+  .workspace-float-brand__product span { display:none; }
+  .workspace-float-brand__project { max-width:45vw; }
+  .topbar__burger { display:grid !important; position:fixed; inset-block-start:12px; inset-inline-end:12px; z-index:90; }
+  .scrim { z-index:95; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar, .main, .sidebar .nav__label, .workspace-float-brand { transition:none !important; }
+}
+
+/* ================================================================
+   SmartRisk workspace — refined sidebar layout
+   Keep the rail compact, remove the dead top space, and keep the
+   secondary actions visible at the bottom without a scrollbar.
+   ================================================================ */
+.sidebar {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: stretch;
+  padding: 14px 10px !important;
+  overflow: hidden !important;
+}
+
+.sidebar > #nav {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin-top: 0 !important;
+  gap: 3px !important;
+}
+
+.sidebar > #nav a,
+.sidebar > #nav button {
+  min-height: 46px;
+  padding: 8px 11px;
+}
+
+.sidebar > #nav a[aria-current="page"] {
+  box-shadow: none;
+}
+
+.sidebar .sidebar__foot {
+  flex: 0 0 auto;
+  margin-top: auto !important;
+  padding-top: 10px !important;
+}
+
+.sidebar .sidebar__foot .nav {
+  margin-top: 0 !important;
+  gap: 2px !important;
+}
+
+.sidebar .sidebar__foot .nav a,
+.sidebar .sidebar__foot .nav button {
+  min-height: 40px;
+  padding: 7px 11px;
+}
+
+/* When expanded, use the available height instead of pushing the footer
+   below the viewport. */
+@media (min-width: 961px) {
+  .sidebar:hover,
+  .sidebar:focus-within {
+    padding-block: 14px !important;
+  }
+
+  .sidebar:hover > #nav,
+  .sidebar:focus-within > #nav {
+    gap: 2px !important;
+  }
+
+  .sidebar:hover > #nav a,
+  .sidebar:hover > #nav button,
+  .sidebar:focus-within > #nav a,
+  .sidebar:focus-within > #nav button {
+    min-height: 45px;
+  }
+
+  .sidebar:hover .sidebar__foot,
+  .sidebar:focus-within .sidebar__foot {
+    padding-top: 9px !important;
+  }
+}
+
+@media (max-height: 760px) and (min-width: 961px) {
+  .sidebar { padding-block: 9px !important; }
+  .sidebar > #nav { gap: 0 !important; }
+  .sidebar > #nav a,
+  .sidebar > #nav button { min-height: 41px; padding-block: 6px; }
+  .sidebar .sidebar__foot { padding-top: 6px !important; }
+  .sidebar .sidebar__foot .nav a,
+  .sidebar .sidebar__foot .nav button { min-height: 36px; }
+}
+
+/* ================================================================
+   SmartRisk workspace — fixed navigation geometry
+   Logo lives inside the rail. Expansion reveals labels without
+   changing the vertical rhythm or scaling any navigation item.
+   ================================================================ */
+.sidebar {
+  padding: 14px 10px !important;
+  gap: 12px !important;
+  transition: width .28s cubic-bezier(.2,.75,.2,1), padding .28s ease, box-shadow .28s ease !important;
+}
+
+.sidebar-brand {
+  flex: 0 0 48px;
+  width: 100%;
+  min-height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.sidebar-brand a {
+  width: 100%;
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 10px;
+  padding: 5px 7px;
+  box-sizing: border-box;
+  color: #fff;
+  text-decoration: none;
+  white-space: nowrap;
+  direction: ltr;
+}
+.sidebar-brand img {
+  width: 38px;
+  height: 38px;
+  flex: 0 0 38px;
+  object-fit: contain;
+}
+.sidebar-brand span {
+  opacity: 0;
+  transform: translateX(-7px);
+  font-size: 1rem;
+  font-weight: 750;
+  letter-spacing: -.02em;
+  transition: opacity .16s ease, transform .22s cubic-bezier(.2,.75,.2,1);
+}
+.sidebar-brand b { color: #20c8ee; }
+.sidebar:hover .sidebar-brand span,
+.sidebar:focus-within .sidebar-brand span {
+  opacity: 1;
+  transform: none;
+}
+
+/* Navigation starts directly below the logo — no artificial top gap. */
+.sidebar > #nav {
+  flex: 1 1 auto;
+  min-height: 0;
+  margin: 0 !important;
+  gap: 3px !important;
+}
+
+/* Every row has one invariant geometry in both states. */
+.sidebar > #nav a,
+.sidebar > #nav button,
+.sidebar .sidebar__foot .nav a,
+.sidebar .sidebar__foot .nav button {
+  position: relative;
+  flex: 0 0 46px;
+  height: 46px;
+  min-height: 46px !important;
+  max-height: 46px;
+  box-sizing: border-box;
+  padding: 0 11px !important;
+  gap: 12px;
+  transform: none !important;
+}
+
+.sidebar > #nav a .icon,
+.sidebar > #nav button .icon,
+.sidebar .sidebar__foot .nav a .icon,
+.sidebar .sidebar__foot .nav button .icon {
+  width: 20px !important;
+  height: 20px !important;
+  flex: 0 0 20px;
+}
+
+/* Labels reveal in-place; they never alter row height or icon size. */
+.sidebar .nav__label {
+  display: block;
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateX(-7px);
+  transition: opacity .16s ease, transform .22s cubic-bezier(.2,.75,.2,1);
+}
+.sidebar:hover .nav__label,
+.sidebar:focus-within .nav__label {
+  opacity: 1;
+  transform: none;
+}
+
+.sidebar .sidebar__foot {
+  flex: 0 0 auto;
+  margin-top: auto !important;
+  padding-top: 10px !important;
+}
+.sidebar .sidebar__foot .nav {
+  gap: 2px !important;
+  margin: 0 !important;
+}
+
+/* Keep the logo and every icon on the same baseline when opening/closing. */
+.sidebar,
+.sidebar-brand,
+.sidebar-brand a,
+.sidebar > #nav,
+.sidebar .sidebar__foot,
+.sidebar .nav a,
+.sidebar .nav button {
+  transform-origin: center left;
+}
+
+@media (max-height: 760px) and (min-width: 961px) {
+  .sidebar { padding-block: 9px !important; gap: 7px !important; }
+  .sidebar-brand { flex-basis: 44px; min-height: 44px; }
+  .sidebar-brand a { height: 44px; }
+  .sidebar-brand img { width: 34px; height: 34px; flex-basis: 34px; }
+  .sidebar > #nav a,
+  .sidebar > #nav button,
+  .sidebar .sidebar__foot .nav a,
+  .sidebar .sidebar__foot .nav button {
+    flex-basis: 41px;
+    height: 41px;
+    min-height: 41px !important;
+    max-height: 41px;
+  }
+}
+
+@media (max-width: 960px) {
+  .sidebar { gap: 10px !important; }
+  .sidebar-brand span { opacity: 1; transform: none; }
+  .sidebar > #nav .nav__label,
+  .sidebar .sidebar__foot .nav__label { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar-brand span,
+  .sidebar .nav__label { transition: none !important; }
+}
+.workspace-float-brand { display:none !important; }
+
+/* SmartRisk — centered brand in both rail states.
+   The logo keeps one fixed center axis; expansion never shifts it sideways. */
+.sidebar-brand {
+  flex: 0 0 68px !important;
+  min-height: 68px !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.sidebar-brand a {
+  width: 100% !important;
+  height: 68px !important;
+  padding: 4px 0 !important;
+  gap: 4px !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  text-align: center !important;
+  direction: ltr !important;
+}
+.sidebar-brand img {
+  width: 38px !important;
+  height: 38px !important;
+  flex: 0 0 38px !important;
+}
+.sidebar-brand span {
+  opacity: 0;
+  transform: translateY(-3px) !important;
+  width: 100%;
+  text-align: center;
+  line-height: 1;
+  font-size: .92rem;
+  transition: opacity .16s ease, transform .22s cubic-bezier(.2,.75,.2,1);
+}
+.sidebar:hover .sidebar-brand span,
+.sidebar:focus-within .sidebar-brand span {
+  opacity: 1;
+  transform: none !important;
+}
+
+@media (max-height: 760px) and (min-width: 961px) {
+  .sidebar-brand {
+    flex-basis: 60px !important;
+    min-height: 60px !important;
+  }
+  .sidebar-brand a { height: 60px !important; }
+  .sidebar-brand img {
+    width: 34px !important;
+    height: 34px !important;
+    flex-basis: 34px !important;
+  }
+}

@@ -2,25 +2,39 @@
 {% from 'partials/logo.html' import brand %}
 {% block title %}{{ project_name }} — SmartRisk{% endblock %}
 {% block body %}
+<div class="project-loader" id="projectLoader" aria-live="polite" aria-label="جارٍ تجهيز المشروع">
+  <div class="project-loader__inner">
+    <div class="project-loader__mark">
+      <div class="project-loader__logo-wrap">
+        <img class="project-loader__logo" src="{{ url_for('static', filename='img/logo/logo.png') }}" alt="SmartRisk" width="88" height="88" decoding="async">
+        <span class="project-loader__scan" aria-hidden="true"></span>
+      </div>
+    </div>
+    <div class="project-loader__name">Smart<span>Risk</span></div>
+    <div class="project-loader__status"><span class="project-loader__status-dot"></span> تجهيز مساحة المشروع</div>
+  </div>
+</div>
 <div class="shell" id="shell">
   <aside class="sidebar" id="sidebar" aria-label="أقسام المشروع">
-    {{ brand(url_for('web.projects')) }}
-    <div class="sidebar__project"><small>المشروع</small><strong id="sbName">{{ project_name }}</strong><span id="sbPill"></span></div>
+    <div class="sidebar-brand">
+      <a href="{{ url_for('web.projects') }}" aria-label="SmartRisk">
+        <img src="{{ url_for('static', filename='img/logo/logo.png') }}" alt="SmartRisk" width="38" height="38" decoding="async">
+        <span>Smart<b>Risk</b></span>
+      </a>
+    </div>
     <nav class="nav" id="nav" aria-label="الأقسام"></nav>
     <div class="sidebar__foot">
       <nav class="nav">
-        <a href="{{ url_for('web.projects') }}"><svg class="icon" viewBox="0 0 24 24"><path d="M3 6a2 2 0 012-2h4l2 2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V6z"/></svg>كل المشاريع</a>
-        <a href="{{ url_for('web.guide') }}" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3V4z"/><path d="M5 17a3 3 0 013-3h11"/></svg>الدليل والقاموس</a>
-        {% if user and not user.local %}<button type="button" data-action="logout"><svg class="icon" viewBox="0 0 24 24"><path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9"/></svg>تسجيل الخروج</button>{% endif %}
+        <a href="{{ url_for('web.projects') }}"><svg class="icon" viewBox="0 0 24 24"><path d="M3 6a2 2 0 012-2h4l2 2h8a2 2 0 012 2v10a2 2 0 01-2 2H5a2 2 0 01-2-2V6z"/></svg><span class="nav__label">كل المشاريع</span></a>
+        <a href="{{ url_for('web.guide') }}" target="_blank" rel="noopener"><svg class="icon" viewBox="0 0 24 24"><path d="M5 4h11a3 3 0 013 3v13H8a3 3 0 01-3-3V4z"/><path d="M5 17a3 3 0 013-3h11"/></svg><span class="nav__label">الدليل والقاموس</span></a>
+        {% if user and not user.local %}<button type="button" data-action="logout"><svg class="icon" viewBox="0 0 24 24"><path d="M10 4H5v16h5M15 8l4 4-4 4M19 12H9"/></svg><span class="nav__label">تسجيل الخروج</span></button>{% endif %}
       </nav>
-      {% if user and not user.local %}<div class="sidebar__user">{{ user.email }}</div>{% endif %}
     </div>
   </aside>
   <div class="scrim" id="scrim"></div>
   <div class="main">
     <header class="wshead">
       <div class="wshead__in">
-        <button class="topbar__burger" type="button" id="navBurger" aria-label="القائمة"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
         <div class="wshead__text">
           <nav class="wshead__crumb" aria-label="مسار التنقل"><a href="{{ url_for('web.projects') }}">مشاريعي</a><span>/</span><span id="crumbName">{{ project_name }}</span></nav>
           <h1 id="viewTitle">…</h1>

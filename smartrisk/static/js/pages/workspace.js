@@ -13,25 +13,44 @@ let current = null;
 let cleanup = null;
 let token = 0;
 
+const projectLoader = $('#projectLoader');
+const loaderStartedAt = performance.now();
+let loaderClosed = false;
+function closeProjectLoader() {
+  if (loaderClosed || !projectLoader) return;
+  loaderClosed = true;
+  const minVisible = 2200;
+  const wait = Math.max(0, minVisible - (performance.now() - loaderStartedAt));
+  window.setTimeout(() => {
+    projectLoader.classList.add('is-leaving');
+    window.setTimeout(() => projectLoader.remove(), 720);
+  }, wait);
+}
+
 const SAVE_TEXT = { idle: '', dirty: 'تعديلات غير محفوظة…', saving: 'جارٍ الحفظ…', saved: 'تم الحفظ', error: 'تعذّر الحفظ' };
 store.on('savestate', (s) => { const el = $('#saveState'); el.dataset.state = s; el.textContent = SAVE_TEXT[s] || ''; });
 store.on('error', (m) => toast(m, 'crit'));
-store.on('saved', (meta) => { $('#sbName').textContent = meta.name; $('#crumbName').textContent = meta.name; document.title = `${meta.name} — SmartRisk`; renderSidePill(); });
+store.on('saved', (meta) => { $('#floatingProjectName').textContent = meta.name; $('#crumbName').textContent = meta.name; document.title = `${meta.name} — SmartRisk`; renderSidePill(); });
 
 function renderSidePill() {
-  const sn = store.state.meta?.snapshot; const lvl = sn && !sn.empty ? sn.level : null;
-  mount($('#sbPill'), lvl ? pill(lvl, LEVEL_AR[lvl]) : '');
+  // Risk status is shown inside the relevant workspace views; the shell stays intentionally quiet.
 }
 
 function buildNav() {
   const nav = $('#nav');
-  mount(nav, ...MODULES.map((m) => {
+  const ids = ['overview', 'inputs', 'statements', 'risk', 'decisions', 'tracking', 'report'];
+  const byId = Object.fromEntries(MODULES.map((m) => [m.id, m]));
+  const nodes = [];
+  for (const id of ids) {
+    const m = byId[id];
+    if (!m) continue;
     const dot = h('span', { class: 'dot' });
     badges[m.id] = dot;
-    const a = h('a', { href: m.href ? m.href(store.state.id) : `#/${m.id}`, dataset: { id: m.id } }, icon(m.icon), m.title, dot);
-    return a;
-  }));
+    nodes.push(h('a', { href: m.href ? m.href(store.state.id) : `#/${m.id}`, dataset: { id: m.id } }, icon(m.icon), h('span', { class: 'nav__label' }, m.title), dot));
+  }
+  mount(nav, ...nodes);
 }
+
 
 const ctx = {
   store,
@@ -66,12 +85,17 @@ async function route() {
 }
 
 async function init() {
-  try { await store.load(); } catch (e) { mount(view, note(e.message, 'crit')); return; }
+  try { await store.load(); } catch (e) { mount(view, note(e.message, 'crit')); closeProjectLoader(); return; }
   buildNav();
   renderSidePill();
-  $('#navBurger').addEventListener('click', () => shell.classList.toggle('nav-open'));
+  const navBurger = $('#navBurger');
+  if (navBurger) navBurger.addEventListener('click', () => shell.classList.toggle('nav-open'));
   $('#scrim').addEventListener('click', () => shell.classList.remove('nav-open'));
   window.addEventListener('hashchange', route);
-  route();
+  try {
+    await route();
+  } finally {
+    closeProjectLoader();
+  }
 }
 init();
