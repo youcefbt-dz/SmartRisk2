@@ -2,15 +2,32 @@
 {% block title %}مشاريعي — SmartRisk{% endblock %}
 {% block body %}
 {% set solid = true %}{% include 'partials/site_header.html' %}
-<section class="wshead wshead--page"><div class="wshead__in">
-  <div class="wshead__text"><h1>مشاريعي</h1><p>كل مشروع يُحفظ تلقائياً ويمكن تكراره أو تصديره.</p></div>
-  <div class="row">
-    <button class="btn btn--ghost btn--light" type="button" id="importBtn">استيراد ملف</button>
-    <button class="btn btn--white" type="button" id="newBtn">مشروع جديد</button>
-    <input type="file" id="importFile" accept="application/json,.json" hidden>
-  </div></div></section>
-<main class="section" style="padding-top:28px">
-  <div id="projectsView" class="grid grid--auto" style="grid-template-columns:repeat(auto-fill,minmax(300px,1fr))"></div>
+<section class="projects-hero">
+  <div class="projects-hero__grid"></div>
+  <div class="projects-hero__in">
+    <div class="projects-hero__copy">
+      <div class="projects-kicker"><span></span> مساحة المشاريع</div>
+      <h1>مشاريعي</h1>
+      <p>كل مشروع يُحفظ تلقائياً. أضف له هويته الخاصة، ثم عد إليه متى شئت.</p>
+    </div>
+    <div class="projects-hero__actions">
+      <div class="projects-count" id="projectsCount"><b>—</b><span>مشروع</span></div>
+      <button class="btn btn--ghost btn--light" type="button" id="importBtn">استيراد ملف</button>
+      <button class="btn btn--white" type="button" id="newBtn">مشروع جديد</button>
+      <input type="file" id="importFile" accept="application/json,.json" hidden>
+    </div>
+  </div>
+</section>
+
+<main class="projects-main">
+  <div class="projects-toolbar">
+    <div>
+      <span class="projects-toolbar__label">مساحة العمل</span>
+      <h2>آخر المشاريع</h2>
+    </div>
+    <div class="projects-toolbar__hint"><span class="projects-toolbar__dot"></span> الحفظ التلقائي مفعّل</div>
+  </div>
+  <div id="projectsView" class="projects-grid"></div>
 </main>
 {% include 'partials/site_footer.html' %}
 {% endblock %}

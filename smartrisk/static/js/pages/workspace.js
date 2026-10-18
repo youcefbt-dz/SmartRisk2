@@ -38,6 +38,23 @@ function renderSidePill() {
   // Risk status is shown inside the relevant workspace views; the shell stays intentionally quiet.
 }
 
+function renderProjectLogo() {
+  const el = $('#projectFloatLogo');
+  if (!el || !store.state.id) return;
+  let src = '';
+  try { src = localStorage.getItem(`smartrisk.project.logo.${store.state.id}`) || ''; } catch {}
+  el.classList.toggle('is-empty', !src);
+  if (src) {
+    el.replaceChildren(h('img', {
+      src,
+      alt: `شعار ${store.state.meta?.name || 'المشروع'}`,
+      decoding: 'async'
+    }));
+  } else {
+    el.replaceChildren();
+  }
+}
+
 function buildNav() {
   const nav = $('#nav');
   const ids = ['overview', 'inputs', 'statements', 'risk', 'decisions', 'tracking', 'report'];
@@ -91,6 +108,7 @@ async function init() {
   try { await store.load(); } catch (e) { mount(view, note(e.message, 'crit')); closeProjectLoader(); return; }
   buildNav();
   renderSidePill();
+  renderProjectLogo();
   if (burger) burger.addEventListener('click', () => setNav(!shell.classList.contains('nav-open')));
   $('#scrim').addEventListener('click', () => setNav(false));
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setNav(false); });
