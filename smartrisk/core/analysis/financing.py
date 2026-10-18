@@ -60,7 +60,7 @@ def financing(ctx, params):
         if funded > 0:
             if opt["kind"] == "loan":
                 q["loans"].append({"id": new_id(), "name": opt["name"], "principal": funded, "rate": rate,
-                                   "months": opt["months"], "grace": opt["grace"], "start_month": start, "existing": False})
+                                   "months": opt["months"], "grace": opt.get("grace", 0), "start_month": start, "existing": False})
             else:
                 q["equity_injections"].append({"id": new_id(), "name": opt["name"], "amount": funded, "month": start})
         ev = _eval(ctx, q, n, seed)
@@ -71,7 +71,8 @@ def financing(ctx, params):
         if cap and amount > cap:
             note += f" (السقف {cap:,.0f} دج؛ لم يُغطَّ {amount - cap:,.0f} دج)."
         ev.update({"id": opt["id"], "name": opt["name"], "kind": opt["kind"], "funded": funded,
-                   "rate": rate if opt["kind"] == "loan" else None, "months": opt["months"] or None,
+                   "rate": rate if opt["kind"] == "loan" else None,
+                   "months": (opt.get("months") or None) if opt["kind"] == "loan" else None,
                    "dilution": dilution, "verified": opt.get("verified", False), "note": note.strip()})
         rows.append(ev)
 

@@ -7,7 +7,8 @@
 .panel > *, .kpi > *, .rs > *, .kri > *, .advice li > * { position: relative; }
 
 /* إزالة كل الخطوط الملوّنة القديمة */
-.panel--accent::before, .main .kpi::before, .main .panel__title::before, .nav a[aria-current="page"]::before { content: none !important; }
+.panel--accent::before, .main .kpi::before, .main .panel__title::before { content: none !important; }
+
 .kpi, .kpi--safe, .kpi--warn, .kpi--crit, .kpi--brand, .rs--crit, .rs--warn, .rs--safe, .advice li, .advice li.is-crit, .advice li.is-warn, .advice li.is-safe, .note, .note--warn, .note--crit, .note--safe { border-inline-start: 1px solid var(--line) !important; }
 .pcard__bar { display: none; }
 .main .kpi::after { height: 190%; top: -40%; background: linear-gradient(160deg, rgba(var(--tint), .13), rgba(var(--tint2), .07)); inset-inline: auto; inset-inline-end: -7%; }

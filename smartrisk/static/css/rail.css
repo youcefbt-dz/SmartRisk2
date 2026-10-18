@@ -1,0 +1,159 @@
+/* =====================================================================
+   الشريط الجانبي لمساحة العمل (Rail)
+   - شريط أيقونات مدمج (76px) يتمدّد فوق المحتوى عند التمرير/التركيز ليُظهر العناوين.
+   - كل صف له هندسة ثابتة: عمود الأيقونة 52px لا يتحرك عند التمدد.
+   - حركة الأيقونات: transform فقط (بلا ألوان)، وتتوقف مع prefers-reduced-motion.
+   - على الشاشات الصغيرة يصبح درجاً جانبياً يُفتح من زر في الترويسة.
+   ===================================================================== */
+:root { --rail-w: 76px; --rail-w-open: 264px; --rail-bg: #0f0945; --rail-ease: cubic-bezier(.22, .8, .24, 1); }
+
+/* ---------- هيكل الصفحة ---------- */
+.shell { display: block; min-height: 100vh; }
+.main {
+  direction: rtl; min-width: 0; min-height: 100vh;
+  display: flex; flex-direction: column;
+  padding-inline-start: var(--rail-w);
+  scrollbar-width: thin; scrollbar-color: rgba(35, 29, 112, .24) transparent;
+}
+
+/* ---------- الشريط ---------- */
+.rail {
+  --shift: 8px;
+  position: fixed; inset-block: 0; inset-inline-start: 0; z-index: 100;
+  box-sizing: border-box; width: var(--rail-w);
+  display: flex; flex-direction: column; gap: 14px;
+  padding: 14px 12px;
+  background: linear-gradient(180deg, #140d4f 0%, var(--rail-bg) 100%);
+  border-inline-end: 1px solid rgba(255, 255, 255, .06);
+  color: #fff; overflow: hidden;
+  transition: width .28s var(--rail-ease), box-shadow .28s ease;
+}
+html[dir="ltr"] .rail { --shift: -8px; }
+
+@media (hover: hover) and (min-width: 961px) {
+  .rail:hover, .rail:has(:focus-visible) { width: var(--rail-w-open); box-shadow: 0 0 56px -10px rgba(6, 3, 32, .65); }
+  .rail:hover .rail__label, .rail:has(:focus-visible) .rail__label,
+  .rail:hover .rail__word, .rail:has(:focus-visible) .rail__word { opacity: 1; transform: none; transition-delay: .05s; }
+}
+@media (hover: none) and (min-width: 961px) {
+  .rail:focus-within { width: var(--rail-w-open); }
+  .rail:focus-within .rail__label, .rail:focus-within .rail__word { opacity: 1; transform: none; }
+}
+
+/* ---------- صف عام (الشعار + الروابط) ---------- */
+.rail__brand, .rail__link {
+  position: relative; box-sizing: border-box; width: 100%;
+  display: grid; grid-template-columns: 52px minmax(0, 1fr); align-items: center;
+  color: inherit; text-decoration: none; white-space: nowrap;
+}
+.rail__ico { position: relative; height: 100%; display: grid; place-items: center; }
+.rail .icon { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; transform-origin: 50% 50%; }
+
+/* ---------- الشعار ---------- */
+.rail__brand { height: 52px; border-radius: 14px; }
+.rail__mark {
+  justify-self: center; width: 44px; height: 44px; border-radius: 13px;
+  display: grid; place-items: center;
+  background: linear-gradient(180deg, #ffffff, #eaeeff);
+  box-shadow: 0 1px 0 #fff inset, 0 10px 20px -10px rgba(0, 0, 0, .6);
+  transition: transform .4s cubic-bezier(.34, 1.56, .64, 1);
+}
+.rail__mark img { width: 31px; height: 31px; object-fit: contain; display: block; }
+.rail__brand:hover .rail__mark, .rail__brand:focus-visible .rail__mark { transform: translateY(-1px) rotate(-4deg) scale(1.05); }
+.rail__word { direction: ltr; justify-self: start; font-size: 1.14rem; font-weight: 700; letter-spacing: -.02em; }
+.rail__word b { color: #00d7ff; font-weight: 700; }
+
+/* ---------- الروابط ---------- */
+.rail__nav, .rail__foot { position: relative; display: flex; flex-direction: column; gap: 4px; padding-top: 14px; }
+.rail__nav::before, .rail__foot::before {
+  content: ""; position: absolute; inset-inline: 20px; top: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, .16), transparent);
+}
+.rail__nav {
+  /* التمرير العمودي للشاشات القصيرة فقط؛ الهوامش السالبة توسّع منطقة القص حتى حافة الشريط فيظهر مؤشر القسم النشط. */
+  flex: 0 1 auto; min-height: 0; overflow-y: auto; scrollbar-width: none;
+  margin-inline: -12px; padding-inline: 12px;
+}
+.rail__nav::-webkit-scrollbar { display: none; }
+.rail__foot { margin-top: auto; gap: 2px; }
+.rail__foot::before { inset-inline: 8px; }
+
+.rail__link {
+  height: 46px; padding: 0; border: 0; border-radius: 12px; background: none;
+  font: inherit; font-size: .93rem; font-weight: 500; text-align: start; cursor: pointer;
+  color: rgba(255, 255, 255, .70);
+  transition: background-color .18s ease, color .18s ease;
+}
+.rail__foot .rail__link { height: 40px; font-size: .86rem; color: rgba(255, 255, 255, .55); }
+.rail__link:hover { background: rgba(255, 255, 255, .07); color: #fff; }
+.rail__link:hover, .rail__brand:hover { text-decoration: none; }
+.rail__link:focus-visible, .rail__brand:focus-visible { outline: 2px solid rgba(0, 215, 255, .75); outline-offset: -2px; }
+.rail__link[aria-current="page"] { background: rgba(255, 255, 255, .10); color: #fff; font-weight: 600; }
+.rail__link[aria-current="page"]::before {
+  content: ""; position: absolute; inset-inline-start: -12px; inset-block: 12px; width: 3px;
+  background: linear-gradient(180deg, #00d7ff, #2a66e0);
+  border-start-end-radius: 3px; border-end-end-radius: 3px;
+}
+
+.rail__label, .rail__word {
+  min-width: 0; overflow: hidden; text-overflow: ellipsis;
+  opacity: 0; transform: translateX(var(--shift));
+  transition: opacity .18s ease, transform .28s var(--rail-ease);
+}
+
+/* ---------- مؤشر حالة القسم (نقطة على زاوية الأيقونة) ---------- */
+.rail__dot { position: absolute; inset-block-start: 10px; inset-inline-start: 31px; width: 8px; height: 8px; border-radius: 50%; background: transparent; }
+.rail__dot--safe, .rail__dot--warn, .rail__dot--crit { box-shadow: 0 0 0 2px var(--rail-bg); }
+.rail__dot--safe { background: var(--safe-fill); }
+.rail__dot--warn { background: var(--warn-fill); }
+.rail__dot--crit { background: var(--crit-fill); }
+
+/* ---------- حركة الأيقونات عند التمرير: خفيفة، لكل أيقونة طابعها ---------- */
+.rail__link:hover .icon, .rail__link:focus-visible .icon { animation: .62s cubic-bezier(.3, .7, .3, 1) 1 none; }
+.rail__link[data-motion="home"]:hover .icon, .rail__link[data-motion="home"]:focus-visible .icon { animation-name: rail-hop; }
+.rail__link[data-motion="edit"]:hover .icon, .rail__link[data-motion="edit"]:focus-visible .icon { animation-name: rail-write; }
+.rail__link[data-motion="table"]:hover .icon, .rail__link[data-motion="table"]:focus-visible .icon { animation-name: rail-pop; }
+.rail__link[data-motion="shield"]:hover .icon, .rail__link[data-motion="shield"]:focus-visible .icon { animation-name: rail-pulse; }
+.rail__link[data-motion="scale"]:hover .icon, .rail__link[data-motion="scale"]:focus-visible .icon { animation-name: rail-tilt; transform-origin: 50% 22%; }
+.rail__link[data-motion="calendar"]:hover .icon, .rail__link[data-motion="calendar"]:focus-visible .icon { animation-name: rail-flip; }
+.rail__link[data-motion="file"]:hover .icon, .rail__link[data-motion="file"]:focus-visible .icon { animation-name: rail-lift; }
+.rail__link[data-motion="folder"]:hover .icon, .rail__link[data-motion="folder"]:focus-visible .icon { animation-name: rail-open; }
+.rail__link[data-motion="book"]:hover .icon, .rail__link[data-motion="book"]:focus-visible .icon { animation-name: rail-page; }
+.rail__link[data-motion="exit"]:hover .icon, .rail__link[data-motion="exit"]:focus-visible .icon { animation-name: rail-exit; }
+
+@keyframes rail-hop { 0% { transform: none; } 35% { transform: translateY(-4px); } 68% { transform: translateY(0) scale(1.06, .93); } 100% { transform: none; } }
+@keyframes rail-write { 0% { transform: none; } 25% { transform: rotate(-14deg) translate(-1px, 1px); } 55% { transform: rotate(8deg); } 80% { transform: rotate(-4deg); } 100% { transform: none; } }
+@keyframes rail-pop { 0% { transform: none; } 40% { transform: scale(1.17); } 70% { transform: scale(.96); } 100% { transform: none; } }
+@keyframes rail-pulse { 0% { transform: none; } 28% { transform: scale(1.15); } 48% { transform: scale(.97); } 68% { transform: scale(1.07); } 100% { transform: none; } }
+@keyframes rail-tilt { 0% { transform: none; } 25% { transform: rotate(-11deg); } 60% { transform: rotate(7deg); } 85% { transform: rotate(-3deg); } 100% { transform: none; } }
+@keyframes rail-flip { 0% { transform: none; } 40% { transform: perspective(70px) rotateX(-30deg) translateY(-1px); } 100% { transform: none; } }
+@keyframes rail-lift { 0% { transform: none; } 40% { transform: translateY(-3px) rotate(4deg); } 100% { transform: none; } }
+@keyframes rail-open { 0% { transform: none; } 40% { transform: scale(1.1) rotate(-6deg); } 100% { transform: none; } }
+@keyframes rail-page { 0% { transform: none; } 35% { transform: skewY(-9deg) scaleX(.94); } 70% { transform: skewY(4deg); } 100% { transform: none; } }
+@keyframes rail-exit { 0% { transform: none; } 40% { transform: translateX(4px); } 100% { transform: none; } }
+
+/* عنصر المحتوى يستقبل التركيز برمجياً عند تغيير القسم؛ لا حاجة لإطار ظاهر حوله. */
+.content:focus, .content:focus-visible { outline: none; }
+
+/* ---------- زر فتح الشريط (الجوال فقط) + الحاجب ---------- */
+.rail-toggle {
+  display: none; flex: none; width: 42px; height: 42px; place-items: center; cursor: pointer;
+  border-radius: 12px; border: 1px solid rgba(255, 255, 255, .3); background: rgba(255, 255, 255, .14); color: #fff;
+}
+.rail-toggle svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; }
+.scrim { position: fixed; inset: 0; z-index: 95; background: rgba(11, 6, 52, .5); opacity: 0; visibility: hidden; transition: opacity .25s ease, visibility .25s ease; }
+
+@media (max-width: 960px) {
+  .main { padding-inline-start: 0; }
+  .rail-toggle { display: grid; }
+  .rail { width: min(288px, 86vw); padding-block: 16px; transform: translateX(105%); box-shadow: none; transition: transform .3s var(--rail-ease), box-shadow .3s ease; }
+  html[dir="ltr"] .rail { transform: translateX(-105%); }
+  .shell.nav-open .rail { transform: none; box-shadow: 0 0 60px rgba(6, 3, 32, .55); }
+  .shell.nav-open .scrim { opacity: 1; visibility: visible; }
+  .rail__label, .rail__word { opacity: 1; transform: none; }
+}
+
+@media print { .rail, .scrim, .rail-toggle { display: none !important; } .main { padding-inline-start: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .rail, .rail *, .scrim { transition: none !important; animation: none !important; }
+}

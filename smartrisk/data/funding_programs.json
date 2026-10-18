@@ -5,7 +5,7 @@
       "id": "self",
       "name": "تمويل ذاتي / مساهمة شخصية",
       "kind": "equity",
-      "rate": 0, "months": 0, "grace": 0,
+      "rate": 0,
       "cost_note": "لا فوائد، لكنه يستهلك مدخراتك الشخصية.",
       "verified": true
     },
@@ -39,7 +39,7 @@
       "id": "partner",
       "name": "شريك مساهم (حصص)",
       "kind": "equity",
-      "rate": 0, "months": 0, "grace": 0,
+      "rate": 0,
       "cost_note": "بلا أقساط، لكنك تتنازل عن جزء من الملكية والأرباح.",
       "verified": true
     }

@@ -34,16 +34,62 @@ function setup() {
   ready = true;
 }
 
+/** يعيد ضبط حجم كل المخططات الحيّة (بعد تحميل الخطوط، أو عودة التبويب، أو الرجوع من الذاكرة المؤقتة). */
+function resizeAll() {
+  if (!window.Chart) return;
+  Object.values(Chart.instances).forEach((c) => { try { c.resize(); } catch { /* ignore */ } });
+}
+let hooked = false;
+function hookGlobal() {
+  if (hooked) return;
+  hooked = true;
+  window.addEventListener('pageshow', resizeAll);
+  document.addEventListener('visibilitychange', () => { if (!document.hidden) resizeAll(); });
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(resizeAll);
+}
+
+/**
+ * ينتظر حتى تصبح اللوحة داخل الصفحة وبحجم فعلي (عرض وارتفاع > 0) ثم ينفّذ cb.
+ * هذا يمنع رسم المخطط داخل عنصر غير مُدرج بعد أو مخفي أو بحجم صفر، وهو سبب
+ * اختفاء المخططات حتى تحديث الصفحة.
+ */
+function whenReady(canvas, cb) {
+  const ok = () => {
+    const box = canvas.parentElement;
+    return !!window.Chart && canvas.isConnected && box && box.clientWidth > 0 && box.clientHeight > 0;
+  };
+  if (ok()) { cb(); return; }
+  let done = false;
+  let ro = null;
+  let timer = null;
+  const stop = () => { done = true; if (ro) ro.disconnect(); clearInterval(timer); clearTimeout(giveUp); };
+  const tryNow = () => { if (done || !ok()) return; stop(); cb(); };
+  const box = canvas.parentElement;
+  if (box && typeof ResizeObserver !== 'undefined') { ro = new ResizeObserver(tryNow); ro.observe(box); }
+  timer = setInterval(tryNow, 100);
+  // محاولة أخيرة بعد 5 ثوانٍ: نرسم إن كانت اللوحة ما زالت في الصفحة.
+  const giveUp = setTimeout(() => { if (done) return; stop(); if (window.Chart && canvas.isConnected) cb(); }, 5000);
+}
+
 export function mk(canvas, config) {
-  setup();
-  const old = Chart.getChart(canvas);
-  if (old) old.destroy();
+  hookGlobal();
   canvas.style.direction = 'ltr';
-  return new Chart(canvas, config);
+  const token = (canvas._skToken = (canvas._skToken || 0) + 1);
+  whenReady(canvas, () => {
+    if (canvas._skToken !== token) return; // طلب أحدث أو تمّ تدمير اللوحة
+    setup();
+    const old = Chart.getChart(canvas);
+    if (old) old.destroy();
+    new Chart(canvas, config);
+  });
 }
 
 export function destroyAll(root) {
-  root.querySelectorAll('canvas').forEach((c) => { const ch = window.Chart && Chart.getChart(c); if (ch) ch.destroy(); });
+  root.querySelectorAll('canvas').forEach((c) => {
+    c._skToken = (c._skToken || 0) + 1; // يلغي أي رسم معلّق لهذه اللوحة
+    const ch = window.Chart && Chart.getChart(c);
+    if (ch) ch.destroy();
+  });
 }
 
 const moneyTick = (v) => short(v);

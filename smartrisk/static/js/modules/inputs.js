@@ -150,13 +150,12 @@ export default {
       ],
     });
     const equity = listEditor({
-      items: d.equity_injections, addLabel: 'إضافة مساهمة', emptyText: 'لا توجد مساهمات رأسمالية إضافية.',
+      items: d.equity_injections, addLabel: 'إضافة مساهمة', emptyText: 'لا توجد مساهمات في رأس المال.',
       onChange: () => set(() => {}),
       newItem: () => ({ name: 'مساهمة', amount: 0, month: 1 }),
       columns: [
-        { key: 'name', label: 'المصدر', type: 'text' },
-        { key: 'amount', label: 'المبلغ', type: 'number', unit: 'دج', min: 0 },
-        { key: 'month', label: 'الشهر', type: 'number', min: 1, max: 60 },
+        { key: 'name', label: 'المساهم / المصدر', type: 'text' },
+        { key: 'amount', label: 'مبلغ المساهمة', type: 'number', unit: 'دج', min: 0 },
       ],
     });
 

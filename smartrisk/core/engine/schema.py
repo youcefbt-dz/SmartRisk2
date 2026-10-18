@@ -186,7 +186,7 @@ def _equity(r: dict, horizon: int) -> dict:
         "id": text(r.get("id"), new_id(), 16),
         "name": text(r.get("name"), "مساهمة", 60),
         "amount": num(r.get("amount"), 0, 0, 1e12),
-        "month": integer(r.get("month"), 1, 1, horizon),
+        "month": 1,  # المساهمة في رأس المال تدخل عند انطلاق المشروع، بلا مدة ولا شهر
     }
 
 

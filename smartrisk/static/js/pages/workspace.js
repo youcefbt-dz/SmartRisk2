@@ -8,6 +8,8 @@ import { LEVEL_AR } from '../lib/format.js';
 
 const view = $('#view');
 const shell = $('#shell');
+const burger = $('#navBurger');
+const setNav = (open) => { shell.classList.toggle('nav-open', open); if (burger) burger.setAttribute('aria-expanded', String(open)); };
 const badges = {};
 let current = null;
 let cleanup = null;
@@ -44,9 +46,10 @@ function buildNav() {
   for (const id of ids) {
     const m = byId[id];
     if (!m) continue;
-    const dot = h('span', { class: 'dot' });
+    const dot = h('span', { class: 'rail__dot' });
     badges[m.id] = dot;
-    nodes.push(h('a', { href: m.href ? m.href(store.state.id) : `#/${m.id}`, dataset: { id: m.id } }, icon(m.icon), h('span', { class: 'nav__label' }, m.title), dot));
+    nodes.push(h('a', { class: 'rail__link', href: m.href ? m.href(store.state.id) : `#/${m.id}`, dataset: { id: m.id, motion: m.icon } },
+      h('span', { class: 'rail__ico' }, icon(m.icon), dot), h('span', { class: 'rail__label' }, m.title)));
   }
   mount(nav, ...nodes);
 }
@@ -54,7 +57,7 @@ function buildNav() {
 
 const ctx = {
   store,
-  setBadge(id, level) { if (badges[id]) badges[id].className = `dot${level ? ' dot--' + level : ''}`; },
+  setBadge(id, level) { if (badges[id]) badges[id].className = `rail__dot${level ? ' rail__dot--' + level : ''}`; },
   goto(id) { location.hash = `#/${id}`; },
   title(t, d = '') { $('#viewTitle').textContent = t; $('#viewSub').textContent = d; },
 };
@@ -66,7 +69,7 @@ async function route() {
   if (cleanup) { try { cleanup(); } catch { /* ignore */ } cleanup = null; }
   destroyAll(view);
   document.querySelectorAll('#nav a').forEach((a) => (a.dataset.id === mod.id ? a.setAttribute('aria-current', 'page') : a.removeAttribute('aria-current')));
-  shell.classList.remove('nav-open');
+  setNav(false);
   ctx.title(mod.title, mod.desc);
   mount(view, loading('جارٍ التحميل…'));
   window.scrollTo({ top: 0 });
@@ -88,9 +91,9 @@ async function init() {
   try { await store.load(); } catch (e) { mount(view, note(e.message, 'crit')); closeProjectLoader(); return; }
   buildNav();
   renderSidePill();
-  const navBurger = $('#navBurger');
-  if (navBurger) navBurger.addEventListener('click', () => shell.classList.toggle('nav-open'));
-  $('#scrim').addEventListener('click', () => shell.classList.remove('nav-open'));
+  if (burger) burger.addEventListener('click', () => setNav(!shell.classList.contains('nav-open')));
+  $('#scrim').addEventListener('click', () => setNav(false));
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') setNav(false); });
   window.addEventListener('hashchange', route);
   try {
     await route();
