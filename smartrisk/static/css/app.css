@@ -215,3 +215,359 @@
   .project-loader { transition: none; }
 }
 
+
+/* ========================================================================
+   SMART RISK — OVERVIEW VERDICT / PREMIUM FINTECH REFRESH
+   Visual-only layer. No DOM, data, state, or interaction changes.
+   ======================================================================== */
+.verdict {
+  --verdict-accent: var(--cyan-400);
+  --verdict-status: var(--safe-fill);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  min-height: 286px;
+  padding: 34px 38px 0;
+  border: 1px solid rgba(116, 151, 255, .20);
+  border-radius: 28px;
+  color: #fff;
+  background:
+    radial-gradient(80% 170% at 8% 100%, rgba(0, 215, 255, .13), transparent 54%),
+    radial-gradient(65% 150% at 100% 0%, rgba(73, 62, 214, .24), transparent 58%),
+    linear-gradient(112deg, #07152e 0%, #0a1736 44%, #10104b 100%);
+  box-shadow:
+    0 26px 60px -38px rgba(14, 27, 72, .72),
+    inset 0 1px 0 rgba(255,255,255,.08);
+}
+
+.verdict::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  width: 620px;
+  height: 620px;
+  left: -250px;
+  bottom: -430px;
+  border: 1px solid rgba(76, 163, 255, .16);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 34px rgba(76, 163, 255, .035),
+    0 0 0 68px rgba(76, 163, 255, .025),
+    0 0 0 102px rgba(76, 163, 255, .018);
+}
+
+.verdict::after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset-inline-end: 30%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(105, 143, 224, .14), transparent);
+  transform: rotate(13deg);
+  transform-origin: top;
+}
+
+.verdict--warn { --verdict-accent: #63b7ff; --verdict-status: var(--warn-fill); }
+.verdict--crit { --verdict-accent: #ff6c88; --verdict-status: var(--crit-fill); }
+.verdict--safe { --verdict-accent: #5ee5bd; --verdict-status: var(--safe-fill); }
+
+.verdict__top {
+  display: grid;
+  grid-template-columns: 88px minmax(0, 1fr) 132px;
+  gap: 30px;
+  align-items: center;
+  min-height: 194px;
+}
+
+.verdict__top > div:nth-child(2) {
+  min-width: 0;
+  position: relative;
+}
+
+.verdict__top > div:nth-child(2)::before {
+  content: "";
+  display: block;
+  width: 42px;
+  height: 2px;
+  margin-bottom: 13px;
+  background: linear-gradient(90deg, var(--verdict-accent), rgba(99,183,255,0));
+  border-radius: 99px;
+}
+
+.verdict small {
+  display: block;
+  margin-bottom: 2px;
+  color: rgba(194, 211, 245, .66);
+  font-size: .76rem;
+  font-weight: 500;
+  letter-spacing: .02em;
+}
+
+.verdict h2 {
+  margin: 0;
+  color: #f8fbff;
+  font-size: clamp(1.75rem, 3.35vw, 2.72rem);
+  line-height: 1.2;
+  letter-spacing: -.035em;
+  text-wrap: balance;
+}
+
+.verdict p {
+  margin-top: 12px;
+  max-width: 62ch;
+  color: rgba(219, 229, 247, .70);
+  font-size: .93rem;
+  line-height: 1.85;
+}
+
+.verdict__badge {
+  position: relative;
+  width: 82px;
+  height: 82px;
+  display: grid;
+  place-items: center;
+  transform: none;
+  border: 1px solid color-mix(in srgb, var(--verdict-status) 58%, transparent);
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--verdict-status) 13%, #081735);
+  box-shadow:
+    inset 0 0 0 7px rgba(255,255,255,.018),
+    0 18px 40px -26px color-mix(in srgb, var(--verdict-status) 80%, transparent);
+  color: var(--verdict-status);
+}
+
+.verdict__badge::before,
+.verdict__badge::after {
+  content: "";
+  position: absolute;
+  border: 1px solid color-mix(in srgb, var(--verdict-status) 28%, transparent);
+  border-radius: 50%;
+}
+.verdict__badge::before { inset: -9px; }
+.verdict__badge::after { inset: -16px; opacity: .55; }
+.verdict__badge svg {
+  width: 31px;
+  height: 31px;
+  transform: none;
+  stroke-width: 1.8;
+  color: var(--verdict-status);
+}
+
+.verdict--safe .verdict__badge,
+.verdict--warn .verdict__badge,
+.verdict--crit .verdict__badge {
+  background: color-mix(in srgb, var(--verdict-status) 11%, #081735);
+  color: var(--verdict-status);
+}
+
+.ring {
+  --v: 0;
+  --c: var(--verdict-accent);
+  width: 118px;
+  height: 118px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  position: relative;
+  flex: none;
+  background: conic-gradient(from -42deg, var(--c) calc(var(--v) * 1%), rgba(255,255,255,.075) 0);
+  box-shadow: 0 0 38px -24px var(--c);
+}
+
+.ring::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border-radius: 50%;
+  background: #091633;
+  border: 1px solid rgba(132, 164, 224, .18);
+}
+
+.ring::after {
+  content: "";
+  position: absolute;
+  inset: 15px;
+  border-radius: 50%;
+  border: 1px dashed rgba(151, 180, 229, .13);
+}
+
+.ring > div {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  line-height: 1.15;
+}
+.ring b {
+  display: block;
+  font-family: var(--mono);
+  font-size: 1.82rem;
+  font-weight: 500;
+  letter-spacing: -.05em;
+  direction: ltr;
+}
+.ring span {
+  display: block;
+  margin-top: 5px;
+  color: rgba(205, 219, 242, .64);
+  font-size: .66rem;
+}
+
+.pillars {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  margin-top: 0;
+  padding: 0;
+  min-height: 64px;
+  border-top: 1px solid rgba(135, 161, 216, .13);
+}
+
+.pillar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  min-width: 0;
+  padding: 16px 12px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+  color: rgba(220, 229, 244, .72);
+  font-size: .83rem;
+  white-space: nowrap;
+}
+
+.pillar + .pillar { border-inline-start: 1px solid rgba(135, 161, 216, .10); }
+.pillar b { color: #edf4ff; font-weight: 600; }
+.pillar i {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--safe-fill);
+  box-shadow: 0 0 0 4px rgba(18,184,134,.09), 0 0 12px rgba(18,184,134,.32);
+}
+.pillar--warn i { background: var(--warn-fill); box-shadow: 0 0 0 4px rgba(245,165,36,.09), 0 0 12px rgba(245,165,36,.30); }
+.pillar--crit i { background: var(--crit-fill); box-shadow: 0 0 0 4px rgba(238,66,102,.09), 0 0 12px rgba(238,66,102,.30); }
+
+@media (max-width: 900px) {
+  .verdict { padding-inline: 26px; }
+  .verdict__top { grid-template-columns: 74px minmax(0, 1fr) 108px; gap: 22px; }
+  .verdict__badge { width: 68px; height: 68px; border-radius: 20px; }
+  .ring { width: 100px; height: 100px; }
+  .pillars { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pillar:nth-child(3) { border-inline-start: 0; border-top: 1px solid rgba(135, 161, 216, .10); }
+  .pillar:nth-child(4) { border-top: 1px solid rgba(135, 161, 216, .10); }
+}
+
+@media (max-width: 650px) {
+  .verdict { min-height: 0; padding: 25px 20px 0; border-radius: 22px; }
+  .verdict__top { grid-template-columns: 1fr auto; gap: 18px; min-height: 0; padding-bottom: 25px; }
+  .verdict__badge { display: none; }
+  .verdict h2 { font-size: 1.65rem; }
+  .verdict p { font-size: .84rem; line-height: 1.7; }
+  .ring { width: 88px; height: 88px; }
+  .ring b { font-size: 1.45rem; }
+  .ring span { font-size: .58rem; }
+  .pillars { grid-template-columns: 1fr 1fr; }
+  .pillar { font-size: .75rem; padding: 13px 7px; }
+}
+
+/* ========================================================================
+   SMART RISK — مساحة تجهيز المشروع: واجهة هادئة وبسيطة
+   Visual-only: لا تغيير في الحالة أو الوظائف.
+   ======================================================================== */
+.project-loader {
+  background: #fbfcff;
+  transition: opacity .42s ease, visibility 0s linear .42s;
+}
+.project-loader__inner {
+  min-width: 0;
+  gap: 0;
+  transform: none;
+  animation: sr-loader-enter-simple .45s ease both;
+}
+.project-loader__line {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  height: 18px;
+  margin-bottom: 15px;
+}
+.project-loader__line i {
+  display: block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #5367d8;
+  opacity: .22;
+  animation: sr-loader-dot 1.15s ease-in-out infinite;
+}
+.project-loader__line i:nth-child(2) { animation-delay: .14s; }
+.project-loader__line i:nth-child(3) { animation-delay: .28s; }
+.project-loader__status {
+  margin: 0;
+  color: #697386;
+  font-size: .76rem;
+  font-weight: 500;
+  letter-spacing: .01em;
+}
+@keyframes sr-loader-enter-simple {
+  from { opacity: 0; transform: translateY(5px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes sr-loader-dot {
+  0%, 100% { opacity: .22; transform: translateY(0); }
+  50% { opacity: 1; transform: translateY(-2px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .project-loader__inner,
+  .project-loader__line i { animation: none; }
+}
+
+/* ========================================================================
+   SMART RISK — شعار المشروع في رأس ورشة العمل
+   يرفع التباين والحضور من دون تعديل الصورة أو أي وظيفة.
+   ======================================================================== */
+.project-float-logo {
+  width: 78px;
+  height: 78px;
+  margin-top: 1px;
+  margin-inline-end: 1px;
+  padding: 5px;
+  box-sizing: border-box;
+  border: 1px solid rgba(255,255,255,.34);
+  background: rgba(255,255,255,.94);
+  box-shadow:
+    0 12px 28px -18px rgba(4,13,38,.70),
+    0 0 0 1px rgba(255,255,255,.10);
+  clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+}
+.project-float-logo img {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  box-sizing: border-box;
+  object-fit: contain;
+  display: block;
+}
+.project-float-logo.is-empty {
+  opacity: .62;
+  background: rgba(255,255,255,.13);
+}
+.project-float-logo.is-empty::before {
+  width: 28px;
+  height: 28px;
+  border-color: rgba(255,255,255,.82);
+}
+@media (max-width: 620px) {
+  .project-float-logo {
+    width: 58px;
+    height: 58px;
+    padding: 4px;
+  }
+  .project-float-logo img { padding: 4px; }
+}

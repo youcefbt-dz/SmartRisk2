@@ -4,14 +4,10 @@
 {% block body %}
 <div class="project-loader" id="projectLoader" aria-live="polite" aria-label="جارٍ تجهيز المشروع">
   <div class="project-loader__inner">
-    <div class="project-loader__mark">
-      <div class="project-loader__logo-wrap">
-        <img class="project-loader__logo" src="{{ url_for('static', filename='img/logo/logo.png') }}" alt="SmartRisk" width="88" height="88" decoding="async">
-        <span class="project-loader__scan" aria-hidden="true"></span>
-      </div>
+    <div class="project-loader__line" aria-hidden="true">
+      <i></i><i></i><i></i>
     </div>
-    <div class="project-loader__name">Smart<span>Risk</span></div>
-    <div class="project-loader__status"><span class="project-loader__status-dot"></span> تجهيز مساحة المشروع</div>
+    <div class="project-loader__status">تجهيز مساحة المشروع</div>
   </div>
 </div>
 <div class="shell" id="shell">
