@@ -4,25 +4,50 @@
 {% block body %}
 <div class="auth">
   <canvas class="bgfan" id="bgfan" aria-hidden="true"></canvas>
-  <header class="site-header"><div class="site-header__in">{{ brand() }}<div class="site-header__end"><a class="btn btn--light btn--sm" href="{{ url_for('web.guide') }}">الدليل</a></div></div></header>
-  <main class="auth__main">
-    <div class="auth__card">
-      <h1>{{ 'إنشاء حساب' if mode == 'register' else 'تسجيل الدخول' }}</h1>
-      <p class="muted" style="margin-bottom:18px">{{ 'احفظ مشاريعك وتابعها من أي جهاز.' if mode == 'register' else 'أهلاً بعودتك. تابع مشاريعك من حيث توقفت.' }}</p>
-      <form id="authForm" class="stack" data-mode="{{ mode }}" novalidate>
-        {% if mode == 'register' %}
-        <label class="field"><span class="field__label">الاسم</span><span class="field__box"><input class="input" name="name" autocomplete="name" maxlength="60"></span></label>
-        {% endif %}
-        <label class="field"><span class="field__label">البريد الإلكتروني</span><span class="field__box"><input class="input is-num" name="email" type="email" autocomplete="email" required dir="ltr"></span></label>
-        <label class="field"><span class="field__label">كلمة المرور</span><span class="field__box"><input class="input is-num" name="password" type="password" autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}" required minlength="8" dir="ltr"></span>{% if mode == 'register' %}<span class="field__hint">8 أحرف على الأقل.</span>{% endif %}</label>
-        <p class="error-text" id="authErr" role="alert"></p>
-        <button class="btn btn--block btn--lg" type="submit" id="authBtn">{{ 'إنشاء الحساب' if mode == 'register' else 'دخول' }}</button>
-      </form>
-      <p class="auth__alt">
-        {% if mode == 'register' %}لديك حساب؟ <a href="{{ url_for('web.login') }}">سجّل الدخول</a>
-        {% else %}ليس لديك حساب؟ <a href="{{ url_for('web.register') }}">أنشئ حساباً</a>{% endif %}
-      </p>
-    </div>
+
+  <main class="auth__shell">
+    <section class="auth__visual" aria-hidden="true">
+      <img class="auth__visual-image" src="{{ url_for('static', filename='img/auth/auth-visual.jpg') }}" alt="">
+      <div class="auth__visual-top">
+        {{ brand() }}
+        <a class="auth__back" href="{{ url_for('web.guide') }}">
+          <span>العودة للموقع</span>
+          <span class="auth__back-arrow" aria-hidden="true">←</span>
+        </a>
+      </div>
+
+      <div class="auth__visual-mark" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </div>
+    </section>
+
+    <section class="auth__form-panel">
+      <div class="auth__form-inner">
+        <div class="auth__mobile-brand">{{ brand() }}</div>
+        <div class="auth__heading">
+          <span class="auth__kicker">{{ 'حساب جديد' if mode == 'register' else 'مساحة العمل' }}</span>
+          <h1>{{ 'إنشاء حساب' if mode == 'register' else 'تسجيل الدخول' }}</h1>
+          <p>{{ 'أنشئ حسابك للوصول إلى مشاريعك المحفوظة.' if mode == 'register' else 'أهلاً بعودتك. أدخل بياناتك للمتابعة.' }}</p>
+        </div>
+
+        <form id="authForm" class="stack auth__form" data-mode="{{ mode }}" novalidate>
+          {% if mode == 'register' %}
+          <label class="field"><span class="field__label">الاسم</span><span class="field__box"><input class="input" name="name" autocomplete="name" maxlength="60" placeholder="اسمك الكامل"></span></label>
+          {% endif %}
+          <label class="field"><span class="field__label">البريد الإلكتروني</span><span class="field__box"><input class="input is-num" name="email" type="email" autocomplete="email" required dir="ltr" placeholder="name@example.com"></span></label>
+          <label class="field"><span class="field__label">كلمة المرور</span><span class="field__box"><input class="input is-num" name="password" type="password" autocomplete="{{ 'new-password' if mode == 'register' else 'current-password' }}" required minlength="8" dir="ltr" placeholder="أدخل كلمة المرور"></span>{% if mode == 'register' %}<span class="field__hint">8 أحرف على الأقل.</span>{% endif %}</label>
+          <p class="error-text" id="authErr" role="alert"></p>
+          <button class="btn btn--block btn--lg auth__submit" type="submit" id="authBtn">{{ 'إنشاء الحساب' if mode == 'register' else 'دخول' }}</button>
+        </form>
+
+        <div class="auth__divider"><span>أو</span></div>
+        <p class="auth__alt">
+          {% if mode == 'register' %}لديك حساب بالفعل؟ <a href="{{ url_for('web.login') }}">سجّل الدخول</a>
+          {% else %}ليس لديك حساب؟ <a href="{{ url_for('web.register') }}">أنشئ حساباً</a>{% endif %}
+        </p>
+
+      </div>
+    </section>
   </main>
 </div>
 {% endblock %}
